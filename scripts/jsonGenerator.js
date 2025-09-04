@@ -52,7 +52,6 @@ try {
   // Initialize empty data
   const emptyData = [];
   fs.writeFileSync(`${JSON_FOLDER}/posts.json`, JSON.stringify(emptyData));
-  fs.writeFileSync(`${JSON_FOLDER}/search.json`, JSON.stringify(emptyData));
 } catch (err) {
   console.error(err);
 }
