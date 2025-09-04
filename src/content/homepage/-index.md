@@ -7,7 +7,7 @@ banner:
   button:
     enable: true
     label: "Get Started For Free"
-    link: "https://github.com/zeon-studio/astroplate"
+    link: "https://github.com/AlanDkoXS/mercado-regional"
 
 # Features
 features:
@@ -36,7 +36,7 @@ features:
     button:
       enable: true
       label: "Get Started Now"
-      link: "https://github.com/zeon-studio/astroplate"
+      link: "https://github.com/AlanDkoXS/mercado-regional"
 
   - title: "The Top Reasons to Choose Astro for Your Next Project"
     image: "/images/service-3.png"
