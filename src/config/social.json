@@ -1,0 +1,19 @@
+{
+    "main": [
+        {
+            "name": "facebook",
+            "icon": "FaFacebook",
+            "link": "https://www.facebook.com/profile.php?id=100084351441514"
+        },
+        {
+            "name": "instagram",
+            "icon": "FaInstagram",
+            "link": "https://www.instagram.com/mercado_regional_cuauhtemoc/"
+        },
+        {
+            "name": "location",
+            "icon": "FaLocationDot",
+            "link": "https://www.google.com/maps/place/MERCADO+REGIONAL/@28.3773096,-106.7442167,17z/data=!3m1!4b1!4m6!3m5!1s0x86c1cd2e212f653f:0xf1471b4454dab0e9!8m2!3d28.3773096!4d-106.7416418!16s%2Fg%2F11vz050ddl?entry=ttu&g_ep=EgoyMDI1MDgzMC4wIKXMDSoASAFQAw%3D%3D"
+        }
+    ]
+}
