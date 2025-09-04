@@ -5,6 +5,13 @@ dist/
 
 # dependencies
 node_modules/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 # logs
 npm-debug.log*
@@ -13,17 +20,72 @@ yarn-error.log*
 pnpm-debug.log*
 yarn.lock
 package-lock.json
-
+.pnpm-store/
 
 # environment variables
 .env
 .env.production
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # macOS-specific files
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows-specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux-specific files
+*~
+.directory
+.Trash-*
 
 # ignore .astro directory
 .astro
 
-# ide
+# cache directories
+.cache/
+.mf/
+.vscode/.debug.script.mjs
+
+# IDE
 .idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+.code-workspace
+*.sublime-workspace
+*.sublime-project
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.swp
+*.swo
+
+# testing
+/coverage
+.nyc_output
+
+# ESLint
+.eslintcache
+
+# Misc
+.vercel
+.netlify
+netlify
+.github
+.dockerignore
+.netlify.toml
+
+# TypeScript
+*.tsbuildinfo
