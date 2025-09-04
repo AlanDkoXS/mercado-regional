@@ -2,12 +2,12 @@
 import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/partials/PageHeader.astro";
-import { getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
 
 const contact = (await getEntry(
   "contact",
-  "-index"
+  "-index",
 )) as CollectionEntry<"contact">;
 const { contact_form_action }: { contact_form_action: string } = config.params;
 const { title, description, meta_title, image } = contact.data;
@@ -23,44 +23,80 @@ const { title, description, meta_title, image } = contact.data;
   <section class="section-sm">
     <div class="container">
       <div class="row">
-        <div class="mx-auto md:col-10 lg:col-6">
+        <div class="md:col-6 mb-10">
+          <div class="content">
+            <h2>Nuestra Ubicación</h2>
+            <p>Puede visitarnos en nuestra tienda física ubicada en:</p>
+            <p>
+              <strong>MERCADO REGIONAL</strong><br />
+              KM 91 +100 CARRETERA A CHIHUAHUA<br />
+              ENTRONQUE A TACUBA, GASOLINERA PHILLIPH 66<br />
+              CIENEGA DE CASTILLO<br />
+              31605 Cuauhtémoc, Chihuahua<br />
+              México
+            </p>
+            <p>
+              <strong>Horario de atención:</strong><br />
+              Todos los días: 7:00 a.m. - 9:00 p.m.
+            </p>
+            <h2>Información de Contacto</h2>
+            <p>
+              Si tiene alguna pregunta o comentario, no dude en contactarnos:
+            </p>
+            <p>
+              <strong>Teléfono:</strong> +52 625 589 1784<br />
+              <strong>Email:</strong> info@mercadoregional.com.mx
+            </p>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3455.8664390598144!2d-106.74421669999999!3d28.3773096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86c1cd2e212f653f%3A0xf1471b4454dab0e9!2sMERCADO%20REGIONAL!5e0!3m2!1ses-419!2smx!4v1694116723050!5m2!1ses-419!2smx"
+              width="100%"
+              height="350"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
+          </div>
+        </div>
+        <div class="md:col-6">
           <form action={contact_form_action} method="POST">
             <div class="mb-6">
               <label for="name" class="form-label">
-                Full Name <span class="text-red-500">*</span>
+                Nombre Completo <span class="text-red-500">*</span>
               </label>
               <input
                 id="name"
                 name="name"
                 class="form-input"
-                placeholder="John Doe"
+                placeholder="Juan Pérez"
                 type="text"
               />
             </div>
             <div class="mb-6">
               <label for="email" class="form-label">
-                Working Mail <span class="text-red-500">*</span>
+                Correo Electrónico <span class="text-red-500">*</span>
               </label>
               <input
                 id="email"
                 name="email"
                 class="form-input"
-                placeholder="john.doe@email.com"
+                placeholder="juan.perez@email.com"
                 type="email"
               />
             </div>
             <div class="mb-6">
               <label for="message" class="form-label">
-                Anything else? <span class="text-red-500">*</span>
+                Mensaje <span class="text-red-500">*</span>
               </label>
               <textarea
                 id="message"
                 name="message"
                 class="form-input"
-                placeholder="Message goes here..."
+                placeholder="Escriba su mensaje aquí..."
                 rows="8"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
           </form>
         </div>
       </div>
