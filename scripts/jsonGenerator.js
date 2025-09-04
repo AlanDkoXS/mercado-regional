@@ -1,10 +1,9 @@
+import matter from "gray-matter";
 import fs from "node:fs";
 import path from "node:path";
-import matter from "gray-matter";
 
 const CONTENT_DEPTH = 2;
 const JSON_FOLDER = "./.json";
-const BLOG_FOLDER = "src/content/blog";
 
 // get data from markdown
 const getData = (folder, groupDepth) => {
@@ -50,17 +49,10 @@ try {
     fs.mkdirSync(JSON_FOLDER);
   }
 
-  // create json files
-  fs.writeFileSync(
-    `${JSON_FOLDER}/posts.json`,
-    JSON.stringify(getData(BLOG_FOLDER, 2)),
-  );
-
-  // merger json files for search
-  const postsPath = new URL(`../${JSON_FOLDER}/posts.json`, import.meta.url);
-  const posts = JSON.parse(fs.readFileSync(postsPath, "utf8"));
-  const search = [...posts];
-  fs.writeFileSync(`${JSON_FOLDER}/search.json`, JSON.stringify(search));
+  // Initialize empty data
+  const emptyData = [];
+  fs.writeFileSync(`${JSON_FOLDER}/posts.json`, JSON.stringify(emptyData));
+  fs.writeFileSync(`${JSON_FOLDER}/search.json`, JSON.stringify(emptyData));
 } catch (err) {
   console.error(err);
 }
