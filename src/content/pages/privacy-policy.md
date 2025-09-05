@@ -1,15 +1,15 @@
 ---
-title: "Política de Privacidad"
-meta_title: "Política de Privacidad - Mercado Regional"
+title: "Aviso de Privacidad"
+meta_title: "Aviso de Privacidad - Mercado Regional"
 description: "Conoce cómo recopilamos, usamos y protegemos tu información personal"
 draft: false
 ---
 
-## Política de Privacidad
+## Aviso de Privacidad
 
 **Fecha de última actualización:** 01 de septiembre del 2025.
 
-En **Mercado Regional**, valoramos tu privacidad y nos comprometemos a proteger tu información personal. Esta Política de Privacidad explica cómo recopilamos, usamos, compartimos y protegemos tu información cuando utilizas nuestros servicios.
+En **Mercado Regional**, valoramos tu privacidad y nos comprometemos a proteger tu información personal. Esta Aviso de Privacidad explica cómo recopilamos, usamos, compartimos y protegemos tu información cuando utilizas nuestros servicios.
 
 ### 1. Información que Recopilamos
 
@@ -107,7 +107,7 @@ Si transferimos tu información fuera de tu país, implementamos salvaguardas ap
 
 ### 10. Cambios a esta Política
 
-Podemos actualizar esta Política de Privacidad ocasionalmente. Te notificaremos sobre cambios significativos:
+Podemos actualizar esta Aviso de Privacidad ocasionalmente. Te notificaremos sobre cambios significativos:
 
 - Mediante aviso prominente en nuestro sitio web
 - Por email si tienes una cuenta con nosotros
@@ -115,7 +115,7 @@ Podemos actualizar esta Política de Privacidad ocasionalmente. Te notificaremos
 
 ### 11. Contacto
 
-Si tienes preguntas sobre esta Política de Privacidad o nuestras prácticas de datos, contáctanos:
+Si tienes preguntas sobre esta Aviso de Privacidad o nuestras prácticas de datos, contáctanos:
 
 **Mercado Regional**
 Email: contacto@mercadoregional.com.mx
@@ -127,4 +127,4 @@ Email: contacto@mercadoregional.com.mx
 
 ---
 
-_Esta Política de Privacidad fue actualizada por última vez el 1 de septiembre de 2025 y es efectiva a partir de esa fecha._
+_Esta Aviso de Privacidad fue actualizada por última vez el 1 de septiembre de 2025 y es efectiva a partir de esa fecha._
