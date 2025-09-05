@@ -50,8 +50,9 @@ const { testimonial } = Astro.props;
                               width={50}
                               class="rounded-full"
                               src={item.avatar}
-                              alt={item.name}
+                              alt={`Foto de ${item.name}`}
                               format="webp"
+                              loading="lazy"
                             />
                           </div>
                           <div class="ml-4">
@@ -67,7 +68,7 @@ const { testimonial } = Astro.props;
                         </div>
                       </div>
                     </div>
-                  )
+                  ),
                 )}
               </div>
               <div class="testimonial-slider-pagination mt-9 flex items-center justify-center text-center" />

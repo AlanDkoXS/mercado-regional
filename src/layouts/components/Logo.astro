@@ -32,12 +32,13 @@ const { theme_switcher }: { theme_switcher: boolean } = config.settings;
           class={`inline-block ${theme_switcher && "dark:hidden"}`}
           width={logo_width.replace("px", "") * 2}
           height={logo_height.replace("px", "") * 2}
-          alt={title}
+          alt={`Logo de ${title}`}
           style={{
             height: logo_height.replace("px", "") + "px",
             width: logo_width.replace("px", "") + "px",
           }}
           format="webp"
+          aboveTheFold={true}
         />
         {theme_switcher && (
           <ImageMod
@@ -45,12 +46,13 @@ const { theme_switcher }: { theme_switcher: boolean } = config.settings;
             class={"hidden dark:inline-block"}
             width={logo_width.replace("px", "") * 2}
             height={logo_height.replace("px", "") * 2}
-            alt={title}
+            alt={`Logo de ${title} (modo oscuro)`}
             style={{
               height: logo_height.replace("px", "") + "px",
               width: logo_width.replace("px", "") + "px",
             }}
             format="webp"
+            aboveTheFold={true}
           />
         )}
       </>

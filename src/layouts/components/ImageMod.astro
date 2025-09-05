@@ -13,6 +13,8 @@ interface Props {
   format?: "auto" | "avif" | "jpeg" | "png" | "svg" | "webp";
   class?: string;
   style?: any;
+  fetchpriority?: "high" | "low" | "auto";
+  aboveTheFold?: boolean;
 }
 
 // Destructuring Astro.props to get the component's props
@@ -26,7 +28,15 @@ let {
   class: className,
   format,
   style,
+  fetchpriority,
+  aboveTheFold,
 } = Astro.props;
+
+// If the image is above the fold, set loading to eager and fetchpriority to high by default
+if (aboveTheFold) {
+  loading = loading || "eager";
+  fetchpriority = fetchpriority || "high";
+}
 
 src = `/public${src}`;
 
@@ -57,6 +67,7 @@ const isValidPath = images[src] ? true : false;
       class={className}
       format={format}
       style={style}
+      fetchpriority={fetchpriority}
     />
   )
 }
