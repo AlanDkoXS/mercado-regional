@@ -6,48 +6,50 @@ banner:
   image: "/images/banner.png"
   button:
     enable: true
-    label: "Get Started For Free"
-    link: "https://github.com/AlanDkoXS/mercado-regional"
+    label: "Escríbenos al WhatsApp"
+    link: "https://wa.me/526251961110?text=🍎%20¡Hola!%20Me%20encantaría%20conocer%20los%20sabores%20de%20Mercado%20Regional"
 
 # Features
 features:
-  - title: "What's Included in Astroplate"
-    image: "/images/service-1.png"
-    content: "Astroplate is a comprehensive starter template that includes everything you need to get started with your Astro project. What's Included in Astroplate"
+  - title: "Productos Destacados de la Región"
+    image: "/images/productos-destacados.png"
+    content: "Descubre la variedad de productos frescos y auténticos que tenemos para ti. Desde los campos de Cuauhtémoc hasta tu mesa, cada producto cuenta una historia de tradición y calidad."
     bulletpoints:
-      - "10+ Pre-build pages"
-      - "95+ Google Pagespeed Score"
-      - "Build with Astro and TailwindCSS for easy and customizable styling"
-      - "Fully responsive on all devices"
-      - "SEO-optimized for better search engine rankings"
-      - "**Open-source and free** for personal and commercial use"
-    button:
-      enable: false
-      label: "Get Started Now"
-      link: "#"
-
-  - title: "Discover the Key Features Of Astro"
-    image: "/images/service-2.png"
-    content: "Astro is an all-in-one web framework for building fast, content-focused websites. It offers a range of exciting features for developers and website creators. Some of the key features are:"
-    bulletpoints:
-      - "Zero JS, by default: No JavaScript runtime overhead to slow you down."
-      - "Customizable: Tailwind, MDX, and 100+ other integrations to choose from."
-      - "UI-agnostic: Supports React, Preact, Svelte, Vue, Solid, Lit and more."
+      - "Manzanas frescas de la región manzanera más productiva"
+      - "Quesos y lácteos de productores locales"
+      - "Artesanías rarámuris auténticas"
+      - "Nueces, miel y productos de temporada"
+      - "Embutidos y carnes secas tradicionales"
+      - "Productos selectos de toda la región chihuahuense"
     button:
       enable: true
-      label: "Get Started Now"
-      link: "https://github.com/AlanDkoXS/mercado-regional"
+      label: "Ver Todos los Productos"
+      link: "/productos"
 
-  - title: "The Top Reasons to Choose Astro for Your Next Project"
-    image: "/images/service-3.png"
-    content: "With Astro, you can build modern and content-focused websites without sacrificing performance or ease of use."
+  - title: "¿Por Qué Elegir Mercado Regional?"
+    image: "/images/por-que-elegirnos.png"
+    content: "Tu parada de confianza en el camino hacia casa. Nos ubicamos estratégicamente para ser tu conexión con los sabores auténticos de la región, sin importar de dónde vengas o hacia dónde vayas."
     bulletpoints:
-      - "Instantly load static sites for better user experience and SEO."
-      - "Intuitive syntax and support for popular frameworks make learning and using Astro a breeze."
-      - "Use any front-end library or framework, or build custom components, for any project size."
-      - "Built on cutting-edge technology to keep your projects up-to-date with the latest web standards."
+      - "Ubicación estratégica en el entronque carretero"
+      - "Productos siempre frescos y de temporada"
+      - "Atención cálida y personalizada"
+      - "Conexión directa con productores locales"
+      - "Tradición familiar en cada producto"
     button:
-      enable: false
-      label: ""
-      link: ""
+      enable: true
+      label: "Conoce Nuestra Historia"
+      link: "/nosotros"
+
+  - title: "Tradición y Calidad en Cada Visita"
+    image: "/images/tradicion-calidad.png"
+    content: "En Mercado Regional celebramos la riqueza cultural de nuestra región. Cada producto que encuentras aquí representa el trabajo, la tradición y el amor de nuestra tierra."
+    bulletpoints:
+      - "Productos que conectan con tus raíces y tradiciones"
+      - "Calidad garantizada de productores de confianza"
+      - "Variedad que satisface todos los gustos y necesidades"
+      - "Experiencia de compra única para locales y visitantes"
+    button:
+      enable: true
+      label: "Visítanos"
+      link: "/contacto"
 ---
