@@ -25,9 +25,9 @@ const aboutCollection = defineCollection({
   }),
 });
 
-// contact collection schema
-const contactCollection = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/contact" }),
+// contacto collection schema
+const contactoCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/contacto" }),
   schema: z.object({
     title: z.string(),
     meta_title: z.string().optional(),
@@ -113,7 +113,7 @@ export const collections = {
   homepage: homepageCollection,
   pages: pagesCollection,
   about: aboutCollection,
-  contact: contactCollection,
+  contacto: contactoCollection,
 
   // sections
   ctaSection: ctaSectionCollection,

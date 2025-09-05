@@ -5,12 +5,12 @@ import PageHeader from "@/partials/PageHeader.astro";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
-const contact = (await getEntry(
-  "contact",
+const contacto = (await getEntry(
+  "contacto",
   "-index",
-)) as CollectionEntry<"contact">;
+)) as CollectionEntry<"contacto">;
 const { contact_form_action }: { contact_form_action: string } = config.params;
-const { title, description, meta_title, image } = contact.data;
+const { title, description, meta_title, image } = contacto.data;
 ---
 
 <Base
