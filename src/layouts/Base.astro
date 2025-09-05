@@ -10,7 +10,6 @@ import {
   GoogleTagmanager,
   GoogleTagmanagerNoscript,
 } from "@digi4care/astro-google-tagmanager";
-import { AstroFont } from "astro-font";
 import { ClientRouter } from "astro:transitions";
 
 // font families
@@ -71,29 +70,34 @@ const { title, meta_title, description, image, noindex, canonical } =
     <meta name="generator" content={Astro.generator} />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <!-- google font css -->
-    <AstroFont
-      config={[
-        {
-          src: [],
-          preload: false,
-          display: "swap",
-          name: fontPrimary!,
-          fallback: "sans-serif",
-          cssVariable: "font-primary",
-          googleFontsURL: `https://fonts.googleapis.com/css2?family=${pf}&display=swap`,
-        },
-        {
-          src: [],
-          preload: false,
-          display: "swap",
-          name: fontSecondary!,
-          fallback: "sans-serif",
-          cssVariable: "font-secondary",
-          googleFontsURL: `https://fonts.googleapis.com/css2?family=${sf}&display=swap`,
-        },
-      ]}
-    />
+    <!-- Fuentes incluidas directamente mediante link en lugar de AstroFont -->
+    {
+      pf && (
+        <link
+          href={`https://fonts.googleapis.com/css2?family=${pf}&display=swap`}
+          rel="stylesheet"
+        />
+      )
+    }
+    {
+      sf && (
+        <link
+          href={`https://fonts.googleapis.com/css2?family=${sf}&display=swap`}
+          rel="stylesheet"
+        />
+      )
+    }
+
+    <!-- CSS variables para las fuentes -->
+    <style
+      is:global
+      define:vars={{
+        "font-primary": fontPrimary,
+        "font-secondary": fontSecondary,
+      }}
+    >
+      /* Define las variables CSS para las fuentes */
+    </style>
 
     <!-- responsive meta -->
     <meta

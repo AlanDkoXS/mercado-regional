@@ -1,10 +1,10 @@
 ---
 enable: true
-title: "Ready to build your next project with Astro?"
+title: "¿Buscas los sabores de casa?"
 image: "/images/call-to-action.png"
-description: "Experience the future of web development with Astroplate and Astro. Build lightning-fast static sites with ease and flexibility."
+description: "En Mercado Regional encontrarás los productos regionales que buscas, listos para acompañarte en tu camino. Tu parada de confianza está aquí."
 button:
   enable: true
-  label: "Get Started Now"
-  link: "https://github.com/AlanDkoXS/mercado-regional"
+  label: "Escríbenos al WhatsApp"
+  link: "https://wa.me/526251961110?text=🍎%20¡Hola!%20Quiero%20descubrir%20los%20productos%20frescos%20que%20tienen"
 ---
