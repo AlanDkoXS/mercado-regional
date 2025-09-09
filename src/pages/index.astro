@@ -1,4 +1,5 @@
 ---
+import Brands from "@/components/Brands.astro";
 import ImageMod from "@/components/ImageMod.astro";
 import Base from "@/layouts/Base.astro";
 import { markdownify } from "@/lib/utils/textConverter";
@@ -124,6 +125,7 @@ const { banner, features } = homepage.data as Homepage;
   }
   <!-- /Features -->
 
+  <Brands />
   <Testimonial testimonial={testimonial} />
   <CallToAction call_to_action={call_to_action} />
 </Base>

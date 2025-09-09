@@ -1,0 +1,63 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const { title = "Marcas que confían en nosotros", subtitle }: Props =
+  Astro.props;
+
+// Nombres de archivo (sin .svg) en /src/icons/brands
+const brands: string[] = [
+  "CajetaDelDesierto",
+  "Cimarron",
+  "Delisana",
+  "Juwie",
+  "Nectar",
+  "NutritionClean",
+  "RepublicaTridente",
+  "SidraBigState",
+  "TeCuida",
+];
+---
+
+<section class="section-sm">
+  <div class="container">
+    <div class="row justify-center text-center mb-10">
+      <div class="md:col-8">
+        <h2
+          class="text-h4 md:text-h3 mb-4 text-text-dark dark:text-darkmode-text-dark"
+        >
+          {title}
+        </h2>
+        {
+          subtitle && (
+            <p class="text-text dark:text-darkmode-text">{subtitle}</p>
+          )
+        }
+      </div>
+    </div>
+    <ul
+      class="flex flex-wrap items-center justify-center gap-x-8 gap-y-8 m-0 p-0 list-none"
+    >
+      {
+        brands.map((brand) => (
+          <li
+            class="flex h-16 w-40 sm:w-44 md:w-48 items-center justify-center px-2"
+            aria-label={brand}
+          >
+            {/* Sintaxis de astro-icon: name="directorio/archivo" relativo a /src/icons */}
+            <Icon
+              name={`brands/${brand}`}
+              class="max-h-full max-w-full h-full w-auto flex-shrink-0 text-text dark:text-darkmode-text"
+              role="img"
+            />
+            <span class="sr-only">{brand}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
