@@ -6,8 +6,10 @@ interface Props {
   subtitle?: string;
 }
 
-const { title = "Marcas que confían en nosotros", subtitle }: Props =
-  Astro.props;
+const {
+  title = "Productores locales y de la región",
+  subtitle = "Nuestras marcas con las que compartimos misón y visión",
+}: Props = Astro.props;
 
 // Nombres de archivo (sin .svg) en /src/icons/brands
 const brands: string[] = [
