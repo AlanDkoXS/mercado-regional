@@ -26,6 +26,7 @@
         "astro": "5.13.5",
         "astro-auto-import": "^0.4.4",
         "astro-font": "^1.1.0",
+        "astro-icon": "^1.1.5",
         "date-fns": "^4.1.0",
         "disqus-react": "^1.1.6",
         "github-slugger": "^2.0.0",
