@@ -21,14 +21,16 @@ const { title, description, meta_title, image } = about.data;
       <div class="row justify-center">
         <div class="text-center md:col-10 lg:col-7">
           {
-            image && (
+            (
               <ImageMod
                 class="mx-auto mb-6 rounded-lg"
-                src={image}
-                width={200}
-                height={200}
+                src="/images/bussines/local-day.png"
+                darkSrc="/images/bussines/local-night.webp"
+                width={400}
+                height={400}
                 alt={title}
                 format="webp"
+                aboveTheFold
               />
             )
           }

@@ -4,7 +4,10 @@ import { Image } from "astro:assets";
 
 // Props interface for the component
 interface Props {
+  /** Ruta relativa dentro de /public, por ejemplo: /images/bussines/local-day.png */
   src: string;
+  /** Variante para modo oscuro (opcional). */
+  darkSrc?: string;
   alt: string;
   width: number;
   height: number;
@@ -20,6 +23,7 @@ interface Props {
 // Destructuring Astro.props to get the component's props
 let {
   src,
+  darkSrc,
   alt,
   width,
   height,
@@ -30,7 +34,7 @@ let {
   style,
   fetchpriority,
   aboveTheFold,
-} = Astro.props;
+}: Props = Astro.props;
 
 // If the image is above the fold, set loading to eager and fetchpriority to high by default
 if (aboveTheFold) {
@@ -38,7 +42,14 @@ if (aboveTheFold) {
   fetchpriority = fetchpriority || "high";
 }
 
-src = `/public${src}`;
+// Normaliza las rutas para que apunten al glob que inicia en /public
+const normalize = (p?: string) => {
+  if (!p) return undefined;
+  return p.startsWith("/public") ? p : `/public${p}`;
+};
+
+src = normalize(src)!;
+const darkSrcResolved = normalize(darkSrc);
 
 // Glob pattern to load images from the /public/images folder
 const images = import.meta.glob(
@@ -46,17 +57,29 @@ const images = import.meta.glob(
 );
 
 // Check if the source path is valid
-const isValidPath = images[src] ? true : false;
+const isValidPath = !!images[src];
+const isValidPathDark = darkSrcResolved ? !!images[darkSrcResolved] : false;
 
 // Log a warning message in red if the image is not found
 !isValidPath &&
   console.error(
-    `\x1b[31mImage not found - ${src}.\x1b[0m Make sure the image is in the /public/images folder.`,
+    `\x1b[31mImage not found - ${src}.\x1b[0m Asegúrate de que exista en /public/images`,
+  );
+darkSrc &&
+  !isValidPathDark &&
+  console.error(
+    `\x1b[31mImage not found (dark) - ${darkSrcResolved}.\x1b[0m Asegúrate de que exista en /public/images`,
   );
 ---
 
 {
-  isValidPath && (
+  /**
+   * Si se proporciona darkSrc y ambas rutas son válidas, se renderizan dos imágenes
+   * y se alterna su visibilidad con las clases dark:block / dark:hidden.
+   */
+}
+{
+  isValidPath && (!darkSrc || !isValidPathDark) && (
     <Image
       src={images[src]() as Promise<{ default: ImageMetadata }>}
       alt={alt}
@@ -69,5 +92,37 @@ const isValidPath = images[src] ? true : false;
       style={style}
       fetchpriority={fetchpriority}
     />
+  )
+}
+{
+  isValidPath && darkSrc && isValidPathDark && (
+    <>
+      <Image
+        src={images[src]() as Promise<{ default: ImageMetadata }>}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        decoding={decoding}
+        class={`${className ?? ""} block dark:hidden`}
+        format={format}
+        style={style}
+        fetchpriority={fetchpriority}
+      />
+      {darkSrcResolved && (
+        <Image
+          src={images[darkSrcResolved]() as Promise<{ default: ImageMetadata }>}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={loading}
+          decoding={decoding}
+          class={`${className ?? ""} hidden dark:block`}
+          format={format}
+          style={style}
+          fetchpriority={fetchpriority}
+        />
+      )}
+    </>
   )
 }
