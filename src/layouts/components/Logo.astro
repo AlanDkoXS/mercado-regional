@@ -1,8 +1,25 @@
 ---
 import config from "@/config/config.json";
+import type { ImageMetadata } from "astro";
 import ImageMod from "./ImageMod.astro";
 
-const { src, srcDarkmode }: { src?: string; srcDarkmode?: string } =
+// Intentos de import estático (wrapped in try/catch not available in .astro frontmatter directly)
+// Usamos glob eager para detectar si los archivos ya fueron movidos a assets.
+const assetLogos = import.meta.glob<{
+  default: ImageMetadata;
+}>("/src/assets/images/**/*.{png,webp,svg}", { eager: true });
+
+const findAsset = (filename: string) => {
+  const entry = Object.entries(assetLogos).find(([full]) =>
+    full.endsWith(filename),
+  );
+  return entry ? entry[1].default : undefined;
+};
+
+const {
+  src,
+  srcDarkmode,
+}: { src?: string | ImageMetadata; srcDarkmode?: string | ImageMetadata } =
   Astro.props;
 const {
   logo,
@@ -21,38 +38,52 @@ const {
 } = config.site;
 
 const { theme_switcher }: { theme_switcher: boolean } = config.settings;
+
+// Buscar versiones optimizadas si existen en assets
+const lightMeta = findAsset("logo.webp") || findAsset("logo.png") || undefined;
+const darkMeta =
+  findAsset("logo-darkmode.webp") ||
+  findAsset("logo-darkmode.png") ||
+  undefined;
+
+// Priorizar props recibidas > metadata importada > rutas de config
+const effectiveLight = src || lightMeta || logo;
+const effectiveDark = srcDarkmode || darkMeta || logo_darkmode;
+
+// Calcular width/height numéricos (si vienen con px los mantiene como antes)
+const w = Number(String(logo_width).replace("px", ""));
+const h = Number(String(logo_height).replace("px", ""));
 ---
 
 <a href="/" class="navbar-brand inline-block">
   {
-    src || srcDarkmode || logo || logo_darkmode ? (
+    effectiveLight || effectiveDark ? (
       <>
         <ImageMod
-          src={src ? src : logo}
+          src={effectiveLight}
           class={`inline-block ${theme_switcher && "dark:hidden"}`}
-          width={logo_width.replace("px", "") * 2}
-          height={logo_height.replace("px", "") * 2}
+          width={w * 2}
+          height={h * 2}
           alt={`Logo de ${title}`}
           style={{
-            height: logo_height.replace("px", "") + "px",
-            width: logo_width.replace("px", "") + "px",
+            height: h + "px",
+            width: w + "px",
           }}
           format="webp"
           aboveTheFold={true}
         />
-        {theme_switcher && (
+        {theme_switcher && effectiveDark && (
           <ImageMod
-            src={srcDarkmode ? srcDarkmode : logo_darkmode}
+            src={effectiveDark}
             class={"hidden dark:inline-block"}
-            width={logo_width.replace("px", "") * 2}
-            height={logo_height.replace("px", "") * 2}
+            width={w * 2}
+            height={h * 2}
             alt={`Logo de ${title} (modo oscuro)`}
             style={{
-              height: logo_height.replace("px", "") + "px",
-              width: logo_width.replace("px", "") + "px",
+              height: h + "px",
+              width: w + "px",
             }}
             format="webp"
-            aboveTheFold={true}
           />
         )}
       </>

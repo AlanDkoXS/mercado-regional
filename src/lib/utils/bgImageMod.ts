@@ -1,41 +1,65 @@
+import type { ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
 
+/**
+ * bgImageMod
+ * Migrado para priorizar imágenes en `src/assets/images` (optimización automática) con fallback temporal a `/public/images`.
+ * Uso esperado: pasar ruta que comience con `/images/` (sin `/public`).
+ */
 const bgImageMod = async (
   src: string,
   format?: "auto" | "avif" | "jpeg" | "png" | "svg" | "webp",
 ) => {
-  src = `/public${src}`;
-  const images = import.meta.glob("/public/images/**/*.{jpeg,jpg,png,gif}");
+  if (!src) return "";
 
-  // Check if the source path is valid
-  if (!src || !images[src]) {
-    console.error(
-      `\x1b[31mImage not found - ${src}.\x1b[0m Make sure the image is in the /public/images folder.`,
-    );
+  const normalize = (p: string) => {
+    return p
+      .replace(/^https?:\/\/[^/]+/, "")
+      .replace(/^\/public/, "")
+      .replace(/^\/*/, "/");
+  };
+  const rel = normalize(src);
+  const clean = rel.startsWith("/images/") ? rel : `/images${rel}`;
 
-    return ""; // Return an empty string if the image is not found
+  // 1. Intentar en assets (eager) - metadatos inmediatos
+  const assetImages = import.meta.glob<{
+    default: ImageMetadata;
+  }>("/src/assets/images/**/*.{jpeg,jpg,png,gif,webp,svg}", { eager: true });
+  const assetEntry = Object.entries(assetImages).find(([full]) =>
+    full.endsWith(clean),
+  );
+  if (assetEntry) {
+    const meta = assetEntry[1].default;
+    const optimized = await getImage({ src: meta, format });
+    return optimized.src;
   }
 
-  // Function to get the image info like width, height, format, etc.
-  const getImagePath = async (image: string) => {
+  // 2. Fallback a public (lazy)
+  const publicImages = import.meta.glob<{
+    default: ImageMetadata;
+  }>("/public/images/**/*.{jpeg,jpg,png,gif,webp,svg}");
+  const publicKey = `/public${clean}`;
+  const loader = publicImages[publicKey];
+  if (loader) {
+    console.warn(
+      `\x1b[33m[bgImageMod] Usando imagen desde /public (no optimizada totalmente). Mueve ${clean} a src/assets/images/ para optimizar.\x1b[0m`,
+    );
     try {
-      const imageData = (await images[image]()) as any;
-      return imageData;
-    } catch (error) {
-      return `Image not found - ${src}. Make sure the image is in the /public/images folder.`;
+      const mod = (await loader()) as any;
+      const optimized = await getImage({ src: mod.default, format });
+      return optimized.src;
+    } catch (e) {
+      console.error(
+        `\x1b[31m[bgImageMod] Error cargando imagen pública ${clean}: ${(e as Error).message}\x1b[0m`,
+      );
+      return "";
     }
-  };
+  }
 
-  // Get the image data for the specified source path
-  const image = await getImagePath(src);
-
-  // Optimize the image for development
-  const ImageMod = await getImage({
-    src: image.default,
-    format: format,
-  });
-
-  return ImageMod.src;
+  console.error(
+    `\x1b[31m[bgImageMod] Imagen no encontrada: ${src}. Colócala en src/assets/images o public/images.\x1b[0m`,
+  );
+  return "";
 };
 
 export default bgImageMod;

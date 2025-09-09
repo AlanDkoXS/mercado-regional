@@ -13,7 +13,8 @@
         "check": "astro check",
         "format": "prettier -w ./src",
         "generate-json": "node scripts/jsonGenerator.js",
-        "remove-darkmode": "node scripts/removeDarkmode.js && pnpm format"
+        "remove-darkmode": "node scripts/removeDarkmode.js && pnpm format",
+        "audit-images": "node scripts/auditImages.js"
     },
     "dependencies": {
         "@astrojs/check": "0.9.4",
