@@ -1,4 +1,5 @@
 ---
+import BannerGradient from "@/components/BannerGradient.astro";
 import Brands from "@/components/Brands.astro";
 import ImageMod from "@/components/ImageMod.astro";
 import Base from "@/layouts/Base.astro";
@@ -64,20 +65,16 @@ const { banner, features } = homepage.data as Homepage;
             )
           }
         </div>
-        {
-          banner.image && (
-            <div class="col-12">
-              <ImageMod
-                src={banner.image}
-                height={380}
-                width={1200}
-                alt={banner.title || "Banner principal de Mercado Regional"}
-                format="webp"
-                aboveTheFold={true}
-              />
-            </div>
-          )
-        }
+        {banner.image && (
+          <div class="col-12">
+            <BannerGradient
+              src={banner.image}
+              height={380}
+              width={1200}
+              alt={banner.title || "Banner principal de Mercado Regional"}
+            />
+          </div>
+        )}
       </div>
     </div>
   </section>

@@ -1,0 +1,88 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+
+export interface Props {
+  src: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+  greetings?: string[];
+}
+
+const {
+  src,
+  alt = "Banner principal de Mercado Regional",
+  width = 1200,
+  height = 380,
+  greetings = ["Bienvenido", "Welcome", "Willkommen", "Kuira'ba"],
+} = Astro.props as Props;
+---
+<section class="w-full relative pt-14">
+  <div class="w-full relative overflow-hidden aspect-[4/3] md:aspect-[1200/380]">
+    <ImageMod
+      src={src}
+      width={width}
+      height={height}
+      alt={alt}
+      format="webp"
+      aboveTheFold={true}
+      class="w-full h-full object-cover"
+    />
+    <!-- Degradado más oscuro y opaco abajo -->
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/95"></div>
+    <!-- Texto superpuesto, centrado y más grande -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center">
+      <h1
+        id="greetingText"
+        class="text-white text-6xl md:text-8xl lg:text-9xl font-rye opacity-0 text-center drop-shadow-lg"
+        aria-live="polite"
+        data-greetings={JSON.stringify(greetings)}
+      >
+        {greetings[0]}
+      </h1>
+    </div>
+  </div>
+</section>
+
+<style>
+  .font-rye {
+    font-family: "Rye", var(--font-secondary, ui-sans-serif), system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in-up {
+    animation: fadeInUp 700ms cubic-bezier(.4,0,.2,1) both;
+  }
+</style>
+
+<script type="module">
+  const el = document.getElementById("greetingText");
+  const list = el?.dataset.greetings
+    ? JSON.parse(el.dataset.greetings)
+    : ["Bienvenido", "Welcome", "Willkommen", "Kuira'ba"];
+
+  if (el) {
+    el.classList.remove("opacity-0");
+    el.classList.add("fade-in-up");
+  }
+
+  let i = 0;
+  const tick = () => {
+    if (!el) return;
+    i = (i + 1) % list.length;
+    el.classList.remove("fade-in-up");
+    void el.offsetWidth; // reinicia la animación
+    el.textContent = list[i];
+    el.classList.add("fade-in-up");
+  };
+
+  const interval = setInterval(tick, 3000);
+  const cleanup = () => clearInterval(interval);
+  window.addEventListener("pagehide", cleanup);
+  window.addEventListener("beforeunload", cleanup);
+  window.addEventListener("astro:before-preparation", cleanup);
+</script>
