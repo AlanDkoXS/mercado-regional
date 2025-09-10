@@ -1,26 +1,23 @@
 ---
 import config from "@/config/config.json";
-import type { ImageMetadata } from "astro";
+// Avoid importing Astro types when deps may be missing in the editor environment
 import ImageMod from "./ImageMod.astro";
 
 // Static import attempts (wrapped in try/catch not available in .astro frontmatter directly)
 // We use eager glob to detect if files have already been moved to assets.
-const assetLogos = import.meta.glob<{
-  default: ImageMetadata;
-}>("/src/assets/images/**/*.{png,webp,svg}", { eager: true });
+const assetLogos = (import.meta as any).glob("/src/assets/images/**/*.{png,webp,svg}", { eager: true }) as Record<string, any>;
 
 const findAsset = (filename: string) => {
   const entry = Object.entries(assetLogos).find(([full]) =>
     full.endsWith(filename),
   );
-  return entry ? entry[1].default : undefined;
+  return entry ? (entry[1] as any).default : undefined;
 };
 
 const {
   src,
   srcDarkmode,
-}: { src?: string | ImageMetadata; srcDarkmode?: string | ImageMetadata } =
-  Astro.props;
+}: { src?: string | any; srcDarkmode?: string | any } = Astro.props;
 const {
   logo,
   logo_darkmode,
@@ -46,9 +43,22 @@ const darkMeta =
   findAsset("logo-darkmode.png") ||
   undefined;
 
+// Also check for capitalized SVG names present in assets (project uses SVG logos)
+const lightSvgMeta = findAsset("Logo.svg") || findAsset("Logo Tint.svg") || undefined;
+const darkSvgMeta =
+  findAsset("Logo-BG-Dark.svg") || findAsset("Logo-BG-Dark.svg") || undefined;
+
+// Horizontal (wide) logo variants — used for desktop / pantallas anchas
+const lightHMeta = findAsset("Logo-H.svg") || findAsset("Logo-H-Tint.svg") || undefined;
+const darkHMeta = findAsset("Logo-H-BG-Dark.svg") || undefined;
+
+// Prefer props > optimized assets > config paths
+const effectiveLight = src || lightMeta || lightSvgMeta || logo;
+const effectiveDark = srcDarkmode || darkMeta || darkSvgMeta || logo_darkmode;
+const effectiveLightH = lightHMeta || effectiveLight;
+const effectiveDarkH = darkHMeta || effectiveDark;
+
 // Prioritize received props > imported metadata > config paths
-const effectiveLight = src || lightMeta || logo;
-const effectiveDark = srcDarkmode || darkMeta || logo_darkmode;
 
 // Calculate numeric width/height (if they come with px, keep as before)
 const w = Number(String(logo_width).replace("px", ""));
@@ -59,33 +69,67 @@ const h = Number(String(logo_height).replace("px", ""));
   {
     effectiveLight || effectiveDark ? (
       <>
-        <ImageMod
-          src={effectiveLight}
-          class={`inline-block ${theme_switcher && "dark:hidden"}`}
-          width={w * 2}
-          height={h * 2}
-          alt={`Logo de ${title}`}
-          style={{
-            height: h + "px",
-            width: w + "px",
-          }}
-          format="webp"
-          aboveTheFold={true}
-        />
-        {theme_switcher && effectiveDark && (
+        <!-- Mobile / small screens: muestra la versión compacta -->
+        <span class="logo--mobile">
           <ImageMod
-            src={effectiveDark}
-            class={"hidden dark:inline-block"}
+            src={effectiveLight}
+            class={`inline-block ${theme_switcher && "dark:hidden"}`}
             width={w * 2}
             height={h * 2}
-            alt={`Logo de ${title} (modo oscuro)`}
+            alt={`Logo de ${title}`}
             style={{
               height: h + "px",
               width: w + "px",
             }}
             format="webp"
+            aboveTheFold={true}
           />
-        )}
+          {theme_switcher && effectiveDark && (
+            <ImageMod
+              src={effectiveDark}
+              class={"hidden dark:inline-block"}
+              width={w * 2}
+              height={h * 2}
+              alt={`Logo de ${title} (modo oscuro)`}
+              style={{
+                height: h + "px",
+                width: w + "px",
+              }}
+              format="webp"
+            />
+          )}
+        </span>
+
+        <!-- Desktop / wide screens: intenta usar la variante horizontal si existe -->
+        <span class="logo--desktop">
+          <ImageMod
+            src={effectiveLightH}
+            class={`inline-block ${theme_switcher && "dark:hidden"}`}
+            width={w * 2}
+            height={h * 2}
+            alt={`Logo de ${title}`}
+            style={{
+              height: h + "px",
+              width: w + "px",
+            }}
+            format="webp"
+            aboveTheFold={true}
+          />
+          {theme_switcher && effectiveDarkH && (
+            <ImageMod
+              src={effectiveDarkH}
+              class={"hidden dark:inline-block"}
+              width={w * 2}
+              height={h * 2}
+              alt={`Logo de ${title} (modo oscuro)`}
+              style={{
+                height: h + "px",
+                width: w + "px",
+              }}
+              format="webp"
+            />
+          )}
+        </span>
       </>
     ) : logo_text ? (
       logo_text
@@ -94,3 +138,15 @@ const h = Number(String(logo_height).replace("px", ""));
     )
   }
 </a>
+
+<style>
+  /* Default: show mobile logo, hide desktop */
+  .logo--desktop { display: none; }
+  .logo--mobile { display: inline-block; }
+
+  /* On wide screens swap to horizontal/desktop logo */
+  @media (min-width: 1024px) {
+    .logo--desktop { display: inline-block; }
+    .logo--mobile { display: none; }
+  }
+</style>
