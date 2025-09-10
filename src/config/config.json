@@ -1,45 +1,45 @@
 {
-    "site": {
-        "title": "Mercado Regional",
-        "base_url": "https://mercadoregional.netlify.app",
-        "base_path": "/",
-        "trailing_slash": false,
-        "favicon": "/images/favicon.svg",
-        "logo": "/images/logo.webp",
-        "logo_darkmode": "/images/logo-darkmode.webp",
-        "logo_width": "100",
-        "logo_height": "77",
-        "logo_text": "Mercado Regional"
-    },
-    "settings": {
-        "search": false,
-        "sticky_header": true,
-        "theme_switcher": true,
-        "default_theme": "system",
-        "pagination": 2,
-        "summary_length": 200
-    },
-    "params": {
-        "contact_form_action": "#",
-        "copyright": "Designed And Developed by [Alan Quintana](https://alanquintana.pro)"
-    },
-    "navigation_button": {
-        "enable": false,
-        "label": "Get Started",
-        "link": "https://https://github.com/AlanDkoXS/mercado-regional"
-    },
-    "google_tag_manager": {
-        "enable": false,
-        "gtm_id": "GTM-XXXXXX"
-    },
-    "disqus": {
-        "enable": true,
-        "shortname": "themefisher-template",
-        "settings": {}
-    },
-    "metadata": {
-        "meta_author": "Alan Quintana",
-        "meta_image": "/images/og-image.png",
-        "meta_description": "astro and tailwind boilerplate"
-    }
+  "site": {
+    "title": "Mercado Regional",
+    "base_url": "https://mercadoregional.netlify.app",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.svg",
+    "logo": "/images/logo.webp",
+    "logo_darkmode": "/images/logo-darkmode.webp",
+    "logo_width": "100",
+    "logo_height": "77",
+    "logo_text": "Mercado Regional"
+  },
+  "settings": {
+    "search": false,
+    "sticky_header": true,
+    "theme_switcher": true,
+    "default_theme": "system",
+    "pagination": 2,
+    "summary_length": 200
+  },
+  "params": {
+    "contact_form_action": "#",
+    "copyright": "Designed And Developed by [Alan Quintana](https://alanquintana.pro)"
+  },
+  "navigation_button": {
+    "enable": false,
+    "label": "Get Started",
+    "link": "https://https://github.com/AlanDkoXS/mercado-regional"
+  },
+  "google_tag_manager": {
+    "enable": false,
+    "gtm_id": "GTM-XXXXXX"
+  },
+  "disqus": {
+    "enable": false,
+    "shortname": "themefisher-template",
+    "settings": {}
+  },
+  "metadata": {
+    "meta_author": "Alan Quintana",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "astro and tailwind boilerplate"
+  }
 }
