@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /*
- * Auditoría de rutas de imágenes legacy.
- * Busca strings '/images/' usadas directamente y reporta si ya existen en assets.
+ * Legacy image path audit.
+ * Searches for '/images/' strings used directly and reports if they already exist in assets.
  */
 import { readdirSync, readFileSync, statSync } from "fs";
 import { join } from "path";
@@ -22,6 +22,7 @@ const walk = (dir) => {
     else {
       if (!extsCode.some((e) => p.endsWith(e))) continue;
       const txt = readFileSync(p, "utf8");
+      // Search for '/images/...' strings in code
       const regex = /(['"`])(\/images\/[^'"`\s)]+)\1/g;
       let m;
       while ((m = regex.exec(txt))) {
@@ -50,7 +51,7 @@ const collectAssets = (dir) => {
 collectAssets(ASSETS);
 
 const toAssetEnd = (img) => {
-  // imagen buscada debe coincidir al final de una ruta en assets
+  // The searched image must match the end of a path in assets
   const filename = img.split("/").pop();
   for (const file of assetFiles) {
     if (file.endsWith(filename)) return true;
@@ -66,24 +67,24 @@ for (const [img, files] of found.entries()) {
 report.sort((a, b) => a.img.localeCompare(b.img));
 
 if (!report.length) {
-  console.log("No se encontraron rutas legacy /images/ en el código.");
+  console.log("No legacy /images/ paths found in the code.");
   process.exit(0);
 }
 
-console.log("\n=== Auditoría de rutas /images/ ===");
+console.log("\n=== /images/ path audit ===");
 for (const r of report) {
-  console.log(`\nImagen: ${r.img}`);
-  console.log(`  Ocurrencias: ${r.count}`);
-  console.log(`  Ya en assets?: ${r.inAssets ? "SI" : "NO"}`);
-  console.log("  Archivos:");
+  console.log(`\nImage: ${r.img}`);
+  console.log(`  Occurrences: ${r.count}`);
+  console.log(`  Already in assets?: ${r.inAssets ? "YES" : "NO"}`);
+  console.log("  Files:");
   r.files.forEach((f) => console.log("   -", f));
 }
 
-const pendientes = report.filter((r) => !r.inAssets);
-if (pendientes.length) {
+const pending = report.filter((r) => !r.inAssets);
+if (pending.length) {
   console.log(
-    `\nPendientes de mover a src/assets/images (${pendientes.length}):`,
+    `\nPending to move to src/assets/images (${pending.length}):`,
   );
-  pendientes.forEach((p) => console.log(" -", p.img));
+  pending.forEach((p) => console.log(" -", p.img));
 }
-console.log("\nFin auditoría.");
+console.log("\nEnd of audit.");
