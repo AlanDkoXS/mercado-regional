@@ -60,29 +60,34 @@ const {
 </style>
 
 <script type="module">
-  const el = document.getElementById("greetingText");
-  const list = el?.dataset.greetings
-    ? JSON.parse(el.dataset.greetings)
-    : ["Bienvenido", "Welcome", "Willkommen", "Kuira'ba"];
-
-  if (el) {
+  function startBannerAnimation() {
+    const el = document.getElementById("greetingText");
+    const list = el?.dataset.greetings
+      ? JSON.parse(el.dataset.greetings)
+      : ["Bienvenido", "Welcome", "Willkommen", "Kuira'ba"];
+    if (!el) return;
+    let i = 0;
+    el.textContent = list[0];
     el.classList.remove("opacity-0");
     el.classList.add("fade-in-up");
+    let interval = setInterval(() => {
+      i = (i + 1) % list.length;
+      el.classList.remove("fade-in-up");
+      void el.offsetWidth;
+      el.textContent = list[i];
+      el.classList.add("fade-in-up");
+    }, 3000);
+    // Limpieza en navegación
+    const cleanup = () => clearInterval(interval);
+    window.addEventListener("pagehide", cleanup, { once: true });
+    window.addEventListener("beforeunload", cleanup, { once: true });
+    window.addEventListener("astro:before-preparation", cleanup, { once: true });
   }
-
-  let i = 0;
-  const tick = () => {
-    if (!el) return;
-    i = (i + 1) % list.length;
-    el.classList.remove("fade-in-up");
-    void el.offsetWidth; // reinicia la animación
-    el.textContent = list[i];
-    el.classList.add("fade-in-up");
-  };
-
-  const interval = setInterval(tick, 3000);
-  const cleanup = () => clearInterval(interval);
-  window.addEventListener("pagehide", cleanup);
-  window.addEventListener("beforeunload", cleanup);
-  window.addEventListener("astro:before-preparation", cleanup);
+  // Inicializar al cargar y al volver con navegación SPA
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    startBannerAnimation();
+  } else {
+    window.addEventListener("DOMContentLoaded", startBannerAnimation, { once: true });
+  }
+  window.addEventListener("astro:page-load", startBannerAnimation);
 </script>
