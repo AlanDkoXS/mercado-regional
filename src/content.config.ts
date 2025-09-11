@@ -13,9 +13,9 @@ const pagesCollection = defineCollection({
   }),
 });
 
-// about collection schema
-const aboutCollection = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/about" }),
+// nosotros collection schema (renombrado desde about)
+const nosotrosCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/nosotros" }),
   schema: z.object({
     title: z.string(),
     meta_title: z.string().optional(),
@@ -28,6 +28,18 @@ const aboutCollection = defineCollection({
 // contacto collection schema
 const contactoCollection = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/contacto" }),
+  schema: z.object({
+    title: z.string(),
+    meta_title: z.string().optional(),
+    description: z.string().optional(),
+    image: z.string().optional(),
+    draft: z.boolean().optional(),
+  }),
+});
+
+// productos collection schema (moved out of pages)
+const productosCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/productos" }),
   schema: z.object({
     title: z.string(),
     meta_title: z.string().optional(),
@@ -112,8 +124,9 @@ export const collections = {
   // Pages
   homepage: homepageCollection,
   pages: pagesCollection,
-  about: aboutCollection,
+  nosotros: nosotrosCollection,
   contacto: contactoCollection,
+  productos: productosCollection,
 
   // sections
   ctaSection: ctaSectionCollection,

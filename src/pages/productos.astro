@@ -1,16 +1,16 @@
 ---
 import ImageMod from "@/components/ImageMod.astro";
 import Base from "@/layouts/Base.astro";
-import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
 import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 
-const nosotros = (await getEntry(
-  "nosotros",
+const productos = (await getEntry(
+  "productos",
   "-index",
-)) as CollectionEntry<"nosotros">;
-const { Content } = await render(nosotros);
-const { title, description, meta_title, image } = nosotros.data;
+)) as CollectionEntry<"productos">;
+const { Content } = await render(productos);
+const { title, description, meta_title, image } = productos.data;
 ---
 
 <Base
@@ -19,25 +19,23 @@ const { title, description, meta_title, image } = nosotros.data;
   description={description}
   image={image}
 >
+  <PageHeader title={title} />
   <section class="section-sm">
     <div class="container">
       <div class="row justify-center">
-        <div class="text-center md:col-10 lg:col-7">
+        <div class="lg:col-10">
           {
-            (
+            image && (
               <ImageMod
                 class="mx-auto mb-6 rounded-lg"
-                src="/images/bussines/local-day.png"
-                darkSrc="/images/bussines/local-night.webp"
-                width={400}
+                src={image}
+                width={600}
                 height={400}
                 alt={title}
                 format="webp"
-                aboveTheFold
               />
             )
           }
-          <h2 set:html={markdownify(title)} class="h3 mb-6" />
           <div class="content">
             <Content />
           </div>
