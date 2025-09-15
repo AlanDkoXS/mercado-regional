@@ -1,5 +1,5 @@
 .header {
-  @apply bg-body dark:bg-darkmode-body py-6;
+  @apply bg-body dark:bg-darkmode-body py-4 lg:py-3;
 }
 
 /* navbar items */
@@ -19,7 +19,7 @@
 }
 
 .nav-link {
-  @apply text-text-dark hover:text-primary dark:text-darkmode-text-dark dark:hover:text-darkmode-primary block p-3 cursor-pointer font-semibold transition lg:px-2 lg:py-3;
+  @apply text-text-dark hover:text-primary dark:text-darkmode-text-dark dark:hover:text-darkmode-primary block p-3 cursor-pointer font-semibold transition lg:px-2 lg:py-2;
 }
 
 .nav-dropdown {

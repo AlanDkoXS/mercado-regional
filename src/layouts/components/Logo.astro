@@ -105,12 +105,12 @@ const h = Number(String(logo_height).replace("px", ""));
           <ImageMod
             src={effectiveLightH}
             class={`inline-block ${theme_switcher && "dark:hidden"}`}
-            width={w * 2}
+            width={w * 4}
             height={h * 2}
             alt={`Logo de ${title}`}
             style={{
-              height: h + "px",
-              width: w + "px",
+              height: (h * 1.2) + "px",
+              width: (w * 2) + "px",
             }}
             format="webp"
             aboveTheFold={true}
@@ -119,12 +119,12 @@ const h = Number(String(logo_height).replace("px", ""));
             <ImageMod
               src={effectiveDarkH}
               class={"hidden dark:inline-block"}
-              width={w * 2}
+              width={w * 4}
               height={h * 2}
               alt={`Logo de ${title} (modo oscuro)`}
               style={{
-                height: h + "px",
-                width: w + "px",
+                height: (h * 1.2) + "px",
+                width: (w * 2) + "px",
               }}
               format="webp"
             />
@@ -148,5 +148,12 @@ const h = Number(String(logo_height).replace("px", ""));
   @media (min-width: 1024px) {
     .logo--desktop { display: inline-block; }
     .logo--mobile { display: none; }
+    .logo--desktop {
+      margin-top: -5px;
+      margin-bottom: -5px;
+    }
+    .logo--desktop img {
+      vertical-align: middle;
+    }
   }
 </style>
