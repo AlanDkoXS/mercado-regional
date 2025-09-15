@@ -89,3 +89,7 @@ netlify
 
 # TypeScript
 *.tsbuildinfo
+
+# Github
+.github
+github
