@@ -48,97 +48,190 @@ const { title, description, meta_title, image } = productos.data;
           <div class="content">
             <Content />
           </div>
-          <!-- Productos Destacados por Categoría -->
+          <!-- Sección Combinada: Categorías de Productos con Productos Destacados -->
           <div class="mt-8">
-            <h2 class="mb-6 text-h4">Productos Destacados de la Región</h2>
+            <h2 class="mb-6 text-h4">
+              Categorías de Productos con Productos Destacados de la Región
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Frutas y Verduras -->
+              <div class="bg-light dark:bg-darkmode-light p-6 rounded-lg">
+                <div class="text-center mb-4">
+                  <FaAppleAlt className="text-4xl text-primary mx-auto mb-2" />
+                  <h3 class="text-h5">Frutas y Verduras</h3>
+                </div>
+                <p class="text-muted mb-4 text-center">
+                  Productos frescos de temporada cultivados por agricultores
+                  locales.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Manzanas frescas de la región manzanera más productiva</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Verduras orgánicas de huertos locales</span
+                    >
+                  </li>
+                </ul>
+              </div>
 
-            <!-- Frutas y Verduras -->
-            <div class="mb-8">
-              <h3 class="flex items-center mb-4 text-h5">
-                <FaAppleAlt className="mr-2 text-primary" />
-                Frutas y Verduras
-              </h3>
-              <ul>
-                <li class="relative mb-4 pl-6">
-                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
-                  <span
-                    >Manzanas frescas de la región manzanera más productiva</span
-                  >
-                </li>
-              </ul>
-            </div>
+              <!-- Lácteos -->
+              <div class="bg-light dark:bg-darkmode-light p-6 rounded-lg">
+                <div class="text-center mb-4">
+                  <FaCheese className="text-4xl text-primary mx-auto mb-2" />
+                  <h3 class="text-h5">Lácteos</h3>
+                </div>
+                <p class="text-muted mb-4 text-center">
+                  Quesos y lácteos artesanales de productores tradicionales.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Quesos y lácteos de productores locales</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Yogurt natural y productos lácteos frescos</span
+                    >
+                  </li>
+                </ul>
+              </div>
 
-            <!-- Lácteos -->
-            <div class="mb-8">
-              <h3 class="flex items-center mb-4 text-h5">
-                <FaCheese className="mr-2 text-primary" />
-                Lácteos
-              </h3>
-              <ul>
-                <li class="relative mb-4 pl-6">
-                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
-                  <span>Quesos y lácteos de productores locales</span>
-                </li>
-              </ul>
-            </div>
+              <!-- Artesanías -->
+              <div class="bg-light dark:bg-darkmode-light p-6 rounded-lg">
+                <div class="text-center mb-4">
+                  <FaPalette className="text-4xl text-primary mx-auto mb-2" />
+                  <h3 class="text-h5">Artesanías</h3>
+                </div>
+                <p class="text-muted mb-4 text-center">
+                  Artesanías tradicionales de la cultura rarámuri y regional.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm">Artesanías rarámuris auténticas</span>
+                  </li>
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Productos textiles y cerámicos tradicionales</span
+                    >
+                  </li>
+                </ul>
+              </div>
 
-            <!-- Artesanías -->
-            <div class="mb-8">
-              <h3 class="flex items-center mb-4 text-h5">
-                <FaPalette className="mr-2 text-primary" />
-                Artesanías
-              </h3>
-              <ul>
-                <li class="relative mb-4 pl-6">
-                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
-                  <span>Artesanías rarámuris auténticas</span>
-                </li>
-              </ul>
-            </div>
+              <!-- Productos de Temporada -->
+              <div class="bg-light dark:bg-darkmode-light p-6 rounded-lg">
+                <div class="text-center mb-4">
+                  <FaLeaf className="text-4xl text-primary mx-auto mb-2" />
+                  <h3 class="text-h5">Productos de Temporada</h3>
+                </div>
+                <p class="text-muted mb-4 text-center">
+                  Productos estacionales frescos y de calidad excepcional.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Nueces, miel y productos de temporada</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Frutas cítricas y berries de temporada</span
+                    >
+                  </li>
+                </ul>
+              </div>
 
-            <!-- Productos de Temporada -->
-            <div class="mb-8">
-              <h3 class="flex items-center mb-4 text-h5">
-                <FaLeaf className="mr-2 text-primary" />
-                Productos de Temporada
-              </h3>
-              <ul>
-                <li class="relative mb-4 pl-6">
-                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
-                  <span>Nueces, miel y productos de temporada</span>
-                </li>
-              </ul>
-            </div>
+              <!-- Carnes y Embutidos -->
+              <div class="bg-light dark:bg-darkmode-light p-6 rounded-lg">
+                <div class="text-center mb-4">
+                  <FaDrumstickBite
+                    className="text-4xl text-primary mx-auto mb-2"
+                  />
+                  <h3 class="text-h5">Carnes y Embutidos</h3>
+                </div>
+                <p class="text-muted mb-4 text-center">
+                  Carnes y embutidos tradicionales preparados con métodos
+                  artesanales.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Embutidos y carnes secas tradicionales</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Carnes frescas de ganadería local</span
+                    >
+                  </li>
+                </ul>
+              </div>
 
-            <!-- Carnes y Embutidos -->
-            <div class="mb-8">
-              <h3 class="flex items-center mb-4 text-h5">
-                <FaDrumstickBite className="mr-2 text-primary" />
-                Carnes y Embutidos
-              </h3>
-              <ul>
-                <li class="relative mb-4 pl-6">
-                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
-                  <span>Embutidos y carnes secas tradicionales</span>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Productos Selectos -->
-            <div class="mb-8">
-              <h3 class="flex items-center mb-4 text-h5">
-                <FaStar className="mr-2 text-primary" />
-                Productos Selectos
-              </h3>
-              <ul>
-                <li class="relative mb-4 pl-6">
-                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
-                  <span>Productos selectos de toda la región chihuahuense</span>
-                </li>
-              </ul>
+              <!-- Productos Selectos -->
+              <div class="bg-light dark:bg-darkmode-light p-6 rounded-lg">
+                <div class="text-center mb-4">
+                  <FaStar className="text-4xl text-primary mx-auto mb-2" />
+                  <h3 class="text-h5">Productos Selectos</h3>
+                </div>
+                <p class="text-muted mb-4 text-center">
+                  Selección especial de productos premium de toda la región.
+                </p>
+                <ul class="space-y-2">
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Productos selectos de toda la región chihuahuense</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <FaCheck
+                      className="mr-2 mt-0.5 text-primary flex-shrink-0"
+                    />
+                    <span class="text-sm"
+                      >Especialidades gourmet y productos únicos</span
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-          <!-- /Productos Destacados por Categoría -->
+          <!-- /Sección Combinada: Categorías de Productos con Productos Destacados -->
         </div>
       </div>
     </div>
