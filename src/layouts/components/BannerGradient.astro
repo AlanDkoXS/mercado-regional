@@ -17,8 +17,11 @@ const {
   greetings = ["Bienvenido", "Welcome", "Willkommen", "Kuira'ba"],
 } = Astro.props as Props;
 ---
+
 <section class="w-full relative pt-14">
-  <div class="w-full relative overflow-hidden aspect-[4/3] md:aspect-[1200/380] rounded-xl">
+  <div
+    class="w-full relative overflow-hidden aspect-[4/3] md:aspect-[1200/380] rounded-xl"
+  >
     <ImageMod
       src={src}
       width={width}
@@ -29,7 +32,10 @@ const {
       class="w-full h-full object-cover"
     />
     <!-- Degradado más oscuro y opaco abajo -->
-    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/95"></div>
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-black/70"
+    >
+    </div>
     <!-- Texto superpuesto, centrado y más grande -->
     <div class="absolute inset-0 flex flex-col items-center justify-center">
       <h1
@@ -46,16 +52,23 @@ const {
 
 <style>
   .font-rye {
-    font-family: "Rye", var(--font-secondary, ui-sans-serif), system-ui, sans-serif;
+    font-family:
+      "Rye", var(--font-secondary, ui-sans-serif), system-ui, sans-serif;
     font-weight: 400;
     letter-spacing: 0.04em;
   }
   @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .fade-in-up {
-    animation: fadeInUp 700ms cubic-bezier(.4,0,.2,1) both;
+    animation: fadeInUp 700ms cubic-bezier(0.4, 0, 0.2, 1) both;
   }
 </style>
 
