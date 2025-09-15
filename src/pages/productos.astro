@@ -4,6 +4,15 @@ import Base from "@/layouts/Base.astro";
 import PageHeader from "@/partials/PageHeader.astro";
 import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
+import {
+  FaAppleAlt,
+  FaCheck,
+  FaCheese,
+  FaDrumstickBite,
+  FaLeaf,
+  FaPalette,
+  FaStar,
+} from "react-icons/fa";
 
 const productos = (await getEntry(
   "productos",
@@ -39,6 +48,97 @@ const { title, description, meta_title, image } = productos.data;
           <div class="content">
             <Content />
           </div>
+          <!-- Productos Destacados por Categoría -->
+          <div class="mt-8">
+            <h2 class="mb-6 text-h4">Productos Destacados de la Región</h2>
+
+            <!-- Frutas y Verduras -->
+            <div class="mb-8">
+              <h3 class="flex items-center mb-4 text-h5">
+                <FaAppleAlt className="mr-2 text-primary" />
+                Frutas y Verduras
+              </h3>
+              <ul>
+                <li class="relative mb-4 pl-6">
+                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
+                  <span
+                    >Manzanas frescas de la región manzanera más productiva</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Lácteos -->
+            <div class="mb-8">
+              <h3 class="flex items-center mb-4 text-h5">
+                <FaCheese className="mr-2 text-primary" />
+                Lácteos
+              </h3>
+              <ul>
+                <li class="relative mb-4 pl-6">
+                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
+                  <span>Quesos y lácteos de productores locales</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Artesanías -->
+            <div class="mb-8">
+              <h3 class="flex items-center mb-4 text-h5">
+                <FaPalette className="mr-2 text-primary" />
+                Artesanías
+              </h3>
+              <ul>
+                <li class="relative mb-4 pl-6">
+                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
+                  <span>Artesanías rarámuris auténticas</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Productos de Temporada -->
+            <div class="mb-8">
+              <h3 class="flex items-center mb-4 text-h5">
+                <FaLeaf className="mr-2 text-primary" />
+                Productos de Temporada
+              </h3>
+              <ul>
+                <li class="relative mb-4 pl-6">
+                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
+                  <span>Nueces, miel y productos de temporada</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Carnes y Embutidos -->
+            <div class="mb-8">
+              <h3 class="flex items-center mb-4 text-h5">
+                <FaDrumstickBite className="mr-2 text-primary" />
+                Carnes y Embutidos
+              </h3>
+              <ul>
+                <li class="relative mb-4 pl-6">
+                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
+                  <span>Embutidos y carnes secas tradicionales</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Productos Selectos -->
+            <div class="mb-8">
+              <h3 class="flex items-center mb-4 text-h5">
+                <FaStar className="mr-2 text-primary" />
+                Productos Selectos
+              </h3>
+              <ul>
+                <li class="relative mb-4 pl-6">
+                  <FaCheck className="absolute left-0 top-1.5 text-primary" />
+                  <span>Productos selectos de toda la región chihuahuense</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- /Productos Destacados por Categoría -->
         </div>
       </div>
     </div>
