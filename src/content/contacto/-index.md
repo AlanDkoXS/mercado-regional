@@ -17,7 +17,7 @@ CIENEGA DE CASTILLO
 México
 
 **Horario de atención:**
-Todos los días: 7:00 a.m. - 9:00 p.m.
+Todos los días: 8:00 a.m. - 9:00 p.m.
 
 ## Información de Contacto
 
