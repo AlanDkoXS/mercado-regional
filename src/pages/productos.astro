@@ -1,4 +1,5 @@
 ---
+import CarouselGallery from "@/components/CarouselGallery.astro";
 import ImageMod from "@/components/ImageMod.astro";
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/partials/PageHeader.astro";
@@ -29,6 +30,7 @@ const { title, description, meta_title, image } = productos.data;
   image={image}
 >
   <PageHeader title={title} />
+  <CarouselGallery />
   <section class="section-sm">
     <div class="container">
       <div class="row justify-center">

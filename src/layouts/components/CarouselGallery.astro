@@ -1,0 +1,105 @@
+---
+// Componente de carrusel de galería para productos
+import ImageMod from "@/components/ImageMod.astro";
+
+// Lista de imágenes de la galería
+const galleryImages = [
+  "MR[250902-020930][01-37].jpg",
+  "MR[250902-021025][02-37].jpg",
+  "MR[250902-021049][04-37].jpg",
+  "MR[250902-021139][05-37].jpg",
+  "MR[250902-021205][06-37].jpg",
+  "MR[250902-021219][07-37].jpg",
+  "MR[250902-021247][08-37].jpg",
+  "MR[250902-021317][09-37].jpg",
+  "MR[250902-021346][10-37].jpg",
+  "MR[250902-021437][11-37].jpg",
+  "MR[250902-021445][12-37].jpg",
+  "MR[250902-021843][13-37].jpg",
+  "MR[250902-021938][14-37].jpg",
+  "MR[250902-021958][15-37].jpg",
+  "MR[250902-022015][16-37].jpg",
+  "MR[250902-022230][17-37].jpg",
+  "MR[250902-022333][18-37].jpg",
+  "MR[250902-022400][19-37].jpg",
+  "MR[250902-022726][20-37].jpg",
+  "MR[250902-022830][21-37].jpg",
+  "MR[250902-023013][22-37].jpg",
+  "MR[250902-023115][23-37].jpg",
+  "MR[250902-023216][24-37].jpg",
+  "MR[250902-023338][25-37].jpg",
+  "MR[250902-023549][26-37].jpg",
+  "MR[250902-023745][27-37].jpg",
+  "MR[250902-024210][28-37].jpg",
+  "MR[250902-024322][29-37].jpg",
+  "MR[250902-024415][30-37].jpg",
+  "MR[250902-024516][31-37].jpg",
+  "MR[250902-024750][32-37].jpg",
+  "MR[250902-025218][33-37].jpg",
+  "MR[250902-025244][34-37].jpg",
+  "MR[250902-025829][35-37].jpg",
+  "MR[250902-025847][36-37].jpg",
+  "MR[250902-030011][37-37].jpg",
+  "local-day2.png",
+  "local-noon.png",
+];
+
+// Duplicar las imágenes para el efecto infinito
+const allImages = [...galleryImages, ...galleryImages];
+---
+
+<section class="py-8 bg-light dark:bg-darkmode-light">
+  <div class="container">
+    <h2 class="text-h4 text-center mb-6">Galería de Productos Regionales</h2>
+    <div class="relative overflow-hidden">
+      <div class="carousel-container flex animate-slide">
+        {
+          allImages.map((image, index) => (
+            <div class="flex-shrink-0 w-64 h-48 mx-2">
+              <ImageMod
+                src={`/images/gallery/${image}`}
+                alt={`Producto regional ${index + 1}`}
+                width={256}
+                height={192}
+                class="w-full h-full object-cover rounded-lg shadow-md"
+                format="webp"
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-slide {
+    animation: slide 30s linear infinite;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .carousel-container > div {
+      width: 200px;
+      height: 150px;
+      margin: 0 8px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .carousel-container > div {
+      width: 150px;
+      height: 112px;
+      margin: 0 4px;
+    }
+  }
+</style>
