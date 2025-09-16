@@ -29,8 +29,8 @@
     "link": "https://https://github.com/AlanDkoXS/mercado-regional"
   },
   "google_tag_manager": {
-    "enable": false,
-    "gtm_id": "GTM-XXXXXX"
+    "enable": true,
+    "gtm_id": "G-CWHJ4D2W28"
   },
   "disqus": {
     "enable": false,
