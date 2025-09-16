@@ -12,7 +12,7 @@ const copyrightText = `© 2023 - ${currentYear} Mercado Regional. Derechos Reser
 <footer class="bg-light dark:bg-darkmode-light">
   <div class="container">
     <!-- Primera fila: 3 columnas -->
-    <div class="row py-10">
+    <div class="row py-6 lg:py-10">
       <!-- Columna 1: Logo -->
       <div class="lg:col-3">
         <Logo />
@@ -23,10 +23,10 @@ const copyrightText = `© 2023 - ${currentYear} Mercado Regional. Derechos Reser
         <h3 class="text-h5 mb-2 text-text-dark dark:text-darkmode-text-dark">
           Enlaces
         </h3>
-        <div class="flex justify-center mb-4">
+        <div class="flex justify-center mb-2 lg:mb-4">
           <hr class="border-border dark:border-darkmode-border w-full" />
         </div>
-        <ul class="flex flex-col space-y-2 mb-4">
+        <ul class="flex flex-col space-y-2 mb-2 lg:mb-4">
           {
             footer.map((menu) => (
               <li>
@@ -47,10 +47,10 @@ const copyrightText = `© 2023 - ${currentYear} Mercado Regional. Derechos Reser
         <h3 class="text-h5 mb-2 text-text-dark dark:text-darkmode-text-dark">
           Horario de Atención
         </h3>
-        <div class="flex justify-center mb-4">
+        <div class="flex justify-center mb-2 lg:mb-4">
           <hr class="border-border dark:border-darkmode-border w-full" />
         </div>
-        <div class="text-text dark:text-darkmode-text mb-4">
+        <div class="text-text dark:text-darkmode-text mb-2 lg:mb-4">
           <p class="mb-1"><strong>Lunes:</strong> 7:00 - 21:00 hrs</p>
           <p class="mb-1"><strong>Martes:</strong> 7:00 - 21:00 hrs</p>
           <p class="mb-1"><strong>Miércoles:</strong> 7:00 - 21:00 hrs</p>
@@ -63,16 +63,16 @@ const copyrightText = `© 2023 - ${currentYear} Mercado Regional. Derechos Reser
     </div>
 
     <!-- Segunda fila: 3 columnas -->
-    <div class="row pb-10">
+    <div class="row pb-6 lg:pb-10">
       <!-- Columna 1: Redes sociales -->
       <div class="lg:col-4">
         <h3 class="text-h5 mb-2 text-text-dark dark:text-darkmode-text-dark">
           Síguenos en Redes Sociales
         </h3>
-        <div class="flex justify-center mb-4">
+        <div class="flex justify-center mb-2 lg:mb-4">
           <hr class="border-border dark:border-darkmode-border w-full" />
         </div>
-        <div class="mb-4 flex justify-center">
+        <div class="mb-2 lg:mb-4 flex justify-center">
           <Social
             source={social.main}
             className="social-icons justify-center"
@@ -85,10 +85,10 @@ const copyrightText = `© 2023 - ${currentYear} Mercado Regional. Derechos Reser
         <h3 class="text-h5 mb-2 text-text-dark dark:text-darkmode-text-dark">
           Desarrollado por
         </h3>
-        <div class="flex justify-center mb-4">
+        <div class="flex justify-center mb-2 lg:mb-4">
           <hr class="border-border dark:border-darkmode-border w-full" />
         </div>
-        <div class="flex justify-center items-center mb-4">
+        <div class="flex justify-center items-center mb-2 lg:mb-4">
           <div class="text-text dark:text-darkmode-text w-32 h-32">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -123,25 +123,26 @@ const copyrightText = `© 2023 - ${currentYear} Mercado Regional. Derechos Reser
         <h3 class="text-h5 mb-2 text-text-dark dark:text-darkmode-text-dark">
           Información
         </h3>
-        <div class="flex justify-center mb-4">
+        <div class="flex justify-center mb-2 lg:mb-4">
           <hr class="border-border dark:border-darkmode-border w-full" />
         </div>
-        <p class="text-text dark:text-darkmode-text mb-4">
+        <p class="text-text dark:text-darkmode-text mb-2 lg:mb-4">
           Más detalles próximamente
         </p>
       </div>
     </div>
 
     <!-- Línea centrada debajo de la segunda fila -->
-    <div class="flex justify-center mb-8">
+    <div class="flex justify-center mb-4 lg:mb-8">
       <hr class="border-border dark:border-darkmode-border w-3/4" />
     </div>
   </div>
 
   <!-- Línea divisoria y copyright -->
-  <div
-    class="container text-center text-text-light dark:text-darkmode-text-light"
-  >
+  <div class="border-t border-border py-4 lg:py-7 dark:border-darkmode-border">
+    <div
+      class="container text-center text-text-light dark:text-darkmode-text-light"
+    >
     <p>{copyrightText}</p>
   </div>
 </footer>
