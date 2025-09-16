@@ -1,30 +1,42 @@
 {
-    "main": [
-        {
-            "name": "Inicio",
-            "url": "/"
-        },
-        {
-            "name": "Nosotros",
-            "url": "/nosotros"
-        },
-        {
-            "name": "Productos",
-            "url": "/productos"
-        },
-        {
-            "name": "Contacto",
-            "url": "/contacto"
-        }
-    ],
-    "footer": [
-        {
-            "name": "Productos",
-            "url": "/productos"
-        },
-        {
-            "name": "Aviso de Privacidad",
-            "url": "/privacy-policy"
-        }
-    ]
+  "main": [
+    {
+      "name": "Inicio",
+      "url": "/"
+    },
+    {
+      "name": "Nosotros",
+      "url": "/nosotros"
+    },
+    {
+      "name": "Productos",
+      "url": "/productos"
+    },
+    {
+      "name": "Contacto",
+      "url": "/contacto"
+    }
+  ],
+  "footer": [
+    {
+      "name": "Inicio",
+      "url": "/"
+    },
+    {
+      "name": "Nosotros",
+      "url": "/nosotros"
+    },
+    {
+      "name": "Productos",
+      "url": "/productos"
+    },
+    {
+      "name": "Contacto",
+      "url": "/contacto"
+    },
+    {
+      "name": "Aviso de Privacidad",
+      "url": "/privacy-policy"
+    }
+  ]
 }
