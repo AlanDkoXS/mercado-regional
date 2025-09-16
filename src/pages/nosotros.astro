@@ -2,6 +2,7 @@
 import ImageMod from "@/components/ImageMod.astro";
 import Base from "@/layouts/Base.astro";
 import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
 import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 
@@ -19,6 +20,7 @@ const { title, description, meta_title, image } = nosotros.data;
   description={description}
   image={image}
 >
+  <PageHeader title={title} />
   <section class="section-sm">
     <div class="container">
       <div class="row justify-center">
