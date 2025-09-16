@@ -60,7 +60,7 @@ const { title, description, meta_title, image } = contacto.data;
           </div>
         </div>
         <div class="md:col-6">
-          <form action={contact_form_action} method="POST">
+          <form action={contact_form_action} method="POST" data-netlify="true">
             <div class="mb-6">
               <label for="name" class="form-label">
                 Nombre Completo <span class="text-red-500">*</span>
