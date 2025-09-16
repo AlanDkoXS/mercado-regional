@@ -92,17 +92,17 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
     const itemWidth = items[0].offsetWidth + 16; // width + margin
     let currentPosition = 0;
     let isAnimating = false;
-    let autoAnimationPaused = false;
+    let autoAnimationStopped = false;
 
     // Función para mover el carrusel
     function moveCarousel(direction) {
       if (isAnimating || !carousel) return;
       isAnimating = true;
 
-      // Pausar animación automática al usar navegación manual
-      if (!autoAnimationPaused) {
+      // Detener animación automática al usar navegación manual
+      if (!autoAnimationStopped) {
         carousel.style.animation = "none";
-        autoAnimationPaused = true;
+        autoAnimationStopped = true;
       }
 
       if (direction === "next") {
@@ -128,12 +128,11 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
     // Función para reanudar animación automática
     function resumeAutoAnimation() {
-      if (autoAnimationPaused && carousel) {
-        setTimeout(() => {
-          carousel.style.animation = "";
-          autoAnimationPaused = false;
-        }, 3000); // Reanudar después de 3 segundos de inactividad
-      }
+      // No reanudar si la animación fue detenida manualmente
+      if (autoAnimationStopped || !carousel) return;
+      setTimeout(() => {
+        carousel.style.animation = "";
+      }, 3000); // Reanudar después de 3 segundos de inactividad
     }
 
     // Event listeners para los botones
@@ -151,11 +150,13 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
     const carouselWrapper = document.querySelector(".carousel-wrapper");
     if (carouselWrapper && carousel) {
       carouselWrapper.addEventListener("mouseenter", () => {
-        carousel.style.animationPlayState = "paused";
+        if (!autoAnimationStopped) {
+          carousel.style.animationPlayState = "paused";
+        }
       });
 
       carouselWrapper.addEventListener("mouseleave", () => {
-        if (!autoAnimationPaused) {
+        if (!autoAnimationStopped) {
           carousel.style.animationPlayState = "running";
         }
       });
@@ -168,10 +169,10 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
     carousel.addEventListener("touchstart", (e) => {
       startX = e.touches[0].clientX;
       isDragging = true;
-      carousel.style.animationPlayState = "paused";
-      if (!autoAnimationPaused) {
+      if (!autoAnimationStopped) {
+        carousel.style.animationPlayState = "paused";
         carousel.style.animation = "none";
-        autoAnimationPaused = true;
+        autoAnimationStopped = true;
       }
     });
 
