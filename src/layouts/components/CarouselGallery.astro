@@ -44,8 +44,15 @@ const galleryImages = [
   "local-noon.png",
 ];
 
-// Duplicar las imágenes para el efecto infinito
-const allImages = [...galleryImages, ...galleryImages];
+// Función para seleccionar imágenes aleatorias
+function getRandomImages(images: string[], count: number): string[] {
+  const shuffled = [...images].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+// Seleccionar 20 imágenes aleatorias y duplicarlas para el efecto infinito
+const selectedImages = getRandomImages(galleryImages, 20);
+const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 ---
 
 <section class="py-8">
