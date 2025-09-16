@@ -48,19 +48,18 @@ const galleryImages = [
 const allImages = [...galleryImages, ...galleryImages];
 ---
 
-<section class="py-8 bg-light dark:bg-darkmode-light">
+<section class="py-8">
   <div class="container">
-    <h2 class="text-h4 text-center mb-6">Galería de Productos Regionales</h2>
     <div class="relative overflow-hidden">
       <div class="carousel-container flex animate-slide">
         {
           allImages.map((image, index) => (
-            <div class="flex-shrink-0 w-64 h-48 mx-2">
+            <div class="flex-shrink-0 w-80 h-60 mx-2">
               <ImageMod
                 src={`/images/gallery/${image}`}
                 alt={`Producto regional ${index + 1}`}
-                width={256}
-                height={192}
+                width={320}
+                height={240}
                 class="w-full h-full object-cover rounded-lg shadow-md"
                 format="webp"
               />
@@ -89,16 +88,16 @@ const allImages = [...galleryImages, ...galleryImages];
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .carousel-container > div {
-      width: 200px;
-      height: 150px;
+      width: 250px;
+      height: 188px;
       margin: 0 8px;
     }
   }
 
   @media (max-width: 480px) {
     .carousel-container > div {
-      width: 150px;
-      height: 112px;
+      width: 190px;
+      height: 142px;
       margin: 0 4px;
     }
   }
