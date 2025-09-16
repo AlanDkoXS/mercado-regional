@@ -57,11 +57,13 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
 <section class="py-8">
   <div class="container">
-    <div class="relative overflow-hidden">
-      <div class="carousel-container flex animate-slide">
+    <div class="relative overflow-hidden carousel-wrapper">
+      <button class="nav-button prev" aria-label="Imagen anterior"> ‹ </button>
+      <button class="nav-button next" aria-label="Imagen siguiente"> › </button>
+      <div class="carousel-container flex animate-slide" id="carousel">
         {
           allImages.map((image, index) => (
-            <div class="flex-shrink-0 w-80 h-60 mx-2">
+            <div class="flex-shrink-0 w-80 h-60 mx-2 carousel-item">
               <ImageMod
                 src={`/images/gallery/${image}`}
                 alt={`Producto regional ${index + 1}`}
@@ -78,18 +80,186 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
   </div>
 </section>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const carousel = document.getElementById("carousel") as HTMLElement;
+    const prevBtn = document.querySelector(
+      ".nav-button.prev",
+    ) as HTMLButtonElement;
+    const nextBtn = document.querySelector(
+      ".nav-button.next",
+    ) as HTMLButtonElement;
+    const items = document.querySelectorAll(".carousel-item");
+
+    if (!carousel || !prevBtn || !nextBtn || items.length === 0) return;
+
+    const itemWidth = (items[0] as HTMLElement).offsetWidth + 16; // width + margin
+    let currentPosition = 0;
+    let isAnimating = false;
+    let autoAnimationPaused = false;
+
+    // Función para mover el carrusel
+    function moveCarousel(direction: "next" | "prev") {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      // Pausar animación automática al usar navegación manual
+      if (!autoAnimationPaused) {
+        carousel.style.animation = "none";
+        autoAnimationPaused = true;
+      }
+
+      if (direction === "next") {
+        currentPosition -= itemWidth;
+        // Si llega al final, vuelve al inicio
+        if (Math.abs(currentPosition) >= itemWidth * 20) {
+          currentPosition = 0;
+        }
+      } else {
+        currentPosition += itemWidth;
+        // Si llega al inicio, va al final
+        if (currentPosition > 0) {
+          currentPosition = -itemWidth * 19;
+        }
+      }
+
+      carousel.style.transform = `translateX(${currentPosition}px)`;
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    }
+
+    // Función para reanudar animación automática
+    function resumeAutoAnimation() {
+      if (autoAnimationPaused) {
+        setTimeout(() => {
+          carousel.style.animation = "";
+          autoAnimationPaused = false;
+        }, 3000); // Reanudar después de 3 segundos de inactividad
+      }
+    }
+
+    // Event listeners para los botones
+    prevBtn.addEventListener("click", () => {
+      moveCarousel("prev");
+      resumeAutoAnimation();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      moveCarousel("next");
+      resumeAutoAnimation();
+    });
+
+    // Pausar animación automática al hacer hover
+    const carouselWrapper = document.querySelector(
+      ".carousel-wrapper",
+    ) as HTMLElement;
+    if (carouselWrapper) {
+      carouselWrapper.addEventListener("mouseenter", () => {
+        carousel.style.animationPlayState = "paused";
+      });
+
+      carouselWrapper.addEventListener("mouseleave", () => {
+        if (!autoAnimationPaused) {
+          carousel.style.animationPlayState = "running";
+        }
+      });
+    }
+
+    // Soporte para touch/swipe en móviles
+    let startX = 0;
+    let isDragging = false;
+
+    carousel.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      carousel.style.animationPlayState = "paused";
+      if (!autoAnimationPaused) {
+        carousel.style.animation = "none";
+        autoAnimationPaused = true;
+      }
+    });
+
+    carousel.addEventListener("touchmove", (e) => {
+      if (!isDragging) return;
+      const currentX = e.touches[0].clientX;
+      const diff = startX - currentX;
+
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          moveCarousel("next");
+        } else {
+          moveCarousel("prev");
+        }
+        isDragging = false;
+      }
+    });
+
+    carousel.addEventListener("touchend", () => {
+      isDragging = false;
+      resumeAutoAnimation();
+    });
+  });
+</script>
+
 <style>
   @keyframes slide {
     0% {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-66.67%);
     }
   }
 
   .animate-slide {
-    animation: slide 30s linear infinite;
+    animation: slide 60s linear infinite;
+  }
+
+  .carousel-container {
+    transition: transform 0.5s ease;
+  }
+
+  .carousel-container:hover {
+    animation-play-state: paused;
+  }
+
+  /* Navigation buttons */
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(223, 109, 45, 0.8);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+  }
+
+  .carousel-wrapper:hover .nav-button {
+    opacity: 1;
+  }
+
+  .nav-button:hover {
+    background: rgba(223, 109, 45, 1);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .nav-button.prev {
+    left: 10px;
+  }
+
+  .nav-button.next {
+    right: 10px;
   }
 
   /* Responsive adjustments */
@@ -99,6 +269,11 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
       height: 188px;
       margin: 0 8px;
     }
+
+    .nav-button {
+      width: 35px;
+      height: 35px;
+    }
   }
 
   @media (max-width: 480px) {
@@ -106,6 +281,11 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
       width: 190px;
       height: 142px;
       margin: 0 4px;
+    }
+
+    .nav-button {
+      width: 30px;
+      height: 30px;
     }
   }
 </style>
