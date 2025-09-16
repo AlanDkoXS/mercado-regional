@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "Mercado Regional",
-    "base_url": "https://mercadoregional.netlify.app",
+    "base_url": "https://mercadoregional.com.mx",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.svg",
