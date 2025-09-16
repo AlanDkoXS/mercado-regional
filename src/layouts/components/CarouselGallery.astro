@@ -82,25 +82,21 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const carousel = document.getElementById("carousel") as HTMLElement;
-    const prevBtn = document.querySelector(
-      ".nav-button.prev",
-    ) as HTMLButtonElement;
-    const nextBtn = document.querySelector(
-      ".nav-button.next",
-    ) as HTMLButtonElement;
+    const carousel = document.getElementById("carousel");
+    const prevBtn = document.querySelector(".nav-button.prev");
+    const nextBtn = document.querySelector(".nav-button.next");
     const items = document.querySelectorAll(".carousel-item");
 
     if (!carousel || !prevBtn || !nextBtn || items.length === 0) return;
 
-    const itemWidth = (items[0] as HTMLElement).offsetWidth + 16; // width + margin
+    const itemWidth = items[0].offsetWidth + 16; // width + margin
     let currentPosition = 0;
     let isAnimating = false;
     let autoAnimationPaused = false;
 
     // Función para mover el carrusel
-    function moveCarousel(direction: "next" | "prev") {
-      if (isAnimating) return;
+    function moveCarousel(direction) {
+      if (isAnimating || !carousel) return;
       isAnimating = true;
 
       // Pausar animación automática al usar navegación manual
@@ -132,7 +128,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
     // Función para reanudar animación automática
     function resumeAutoAnimation() {
-      if (autoAnimationPaused) {
+      if (autoAnimationPaused && carousel) {
         setTimeout(() => {
           carousel.style.animation = "";
           autoAnimationPaused = false;
@@ -152,10 +148,8 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
     });
 
     // Pausar animación automática al hacer hover
-    const carouselWrapper = document.querySelector(
-      ".carousel-wrapper",
-    ) as HTMLElement;
-    if (carouselWrapper) {
+    const carouselWrapper = document.querySelector(".carousel-wrapper");
+    if (carouselWrapper && carousel) {
       carouselWrapper.addEventListener("mouseenter", () => {
         carousel.style.animationPlayState = "paused";
       });
@@ -182,7 +176,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
     });
 
     carousel.addEventListener("touchmove", (e) => {
-      if (!isDragging) return;
+      if (!isDragging || !carousel) return;
       const currentX = e.touches[0].clientX;
       const diff = startX - currentX;
 

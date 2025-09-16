@@ -1,44 +1,44 @@
 {
-  "colors": {
-    "default": {
-      "theme_color": {
-        "primary": "#B5D8A8",
-        "body": "#F0F0F0",
-        "border": "#E0E0E0",
-        "light": "#FFF8E1",
-        "dark": "#D2B48C"
-      },
-      "text_color": {
-        "text": "#5A6B5A",
-        "text_dark": "#3A4A3A",
-        "text_light": "#8A9A8A"
-      }
+    "colors": {
+        "default": {
+            "theme_color": {
+                "primary": "#B5D8A8",
+                "body": "#F0F0F0",
+                "border": "#E0E0E0",
+                "light": "#FFF8E1",
+                "dark": "#D2B48C"
+            },
+            "text_color": {
+                "text": "#5A6B5A",
+                "text_dark": "#3A4A3A",
+                "text_light": "#8A9A8A"
+            }
+        },
+        "darkmode": {
+            "theme_color": {
+                "primary": "#7FB069",
+                "body": "#2D3A2D",
+                "border": "#454545",
+                "light": "#3D4D3D",
+                "dark": "#F0F0F0"
+            },
+            "text_color": {
+                "text": "#B8C8B8",
+                "text_dark": "#E8F0E8",
+                "text_light": "#9AA09A"
+            }
+        }
     },
-    "darkmode": {
-      "theme_color": {
-        "primary": "#7FB069",
-        "body": "#2D3A2D",
-        "border": "#454545",
-        "light": "#3D4D3D",
-        "dark": "#F0F0F0"
-      },
-      "text_color": {
-        "text": "#B8C8B8",
-        "text_dark": "#E8F0E8",
-        "text_light": "#9AA09A"
-      }
+    "fonts": {
+        "font_family": {
+            "primary": "Heebo:wght@400;600",
+            "primary_type": "sans-serif",
+            "secondary": "Signika:wght@500;700",
+            "secondary_type": "sans-serif"
+        },
+        "font_size": {
+            "base": "16",
+            "scale": "1.2"
+        }
     }
-  },
-  "fonts": {
-    "font_family": {
-      "primary": "Heebo:wght@400;600",
-      "primary_type": "sans-serif",
-      "secondary": "Signika:wght@500;700",
-      "secondary_type": "sans-serif"
-    },
-    "font_size": {
-      "base": "16",
-      "scale": "1.2"
-    }
-  }
 }
