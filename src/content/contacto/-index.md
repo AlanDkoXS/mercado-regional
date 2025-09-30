@@ -23,7 +23,7 @@ Todos los días: 8:00 a.m. - 9:00 p.m.
 
 Si tiene alguna pregunta o comentario, no dude en contactarnos:
 
-**Teléfono:** +52 625 589 1784
+**Teléfono:** +52 625 196 1110
 **Email:** info@mercadoregional.com.mx
 
 También puede usar el formulario de contacto a continuación para enviarnos un mensaje.

@@ -120,7 +120,7 @@ Si tienes preguntas sobre esta Aviso de Privacidad o nuestras prácticas de dato
 **Mercado Regional**
 Email: contacto@mercadoregional.com.mx
 Dirección: KM 91 +100 CARRETERA A CHIHUAHUA, ENTRONQUE A TACUBA, GASOLINERA PHILLIPH 66 CIENEGA DE CASTILLO, 31605 Cuauhtémoc, Chih.
-Teléfono: +52 625 589 1784
+Teléfono: +52 625 196 1110
 
 **Delegado de Protección de Datos (si aplica):**
 Email: contacto@mercadoregional.com.mx
