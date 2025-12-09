@@ -1,8 +1,8 @@
 ---
-// Componente de carrusel de galería para productos
+// Product gallery carousel component
 import ImageMod from "@/layouts/components/ImageMod.astro";
 
-// Lista de imágenes de la galería
+// Gallery image list
 const galleryImages = [
   "MR[250902-020930][01-37].jpg",
   "MR[250902-021025][02-37].jpg",
@@ -57,11 +57,15 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
 <section class="py-8">
   <div class="relative overflow-hidden carousel-wrapper">
-    <button class="nav-button prev" aria-label="Imagen anterior"> ‹ </button>
-    <button class="nav-button next" aria-label="Imagen siguiente"> › </button>
+    <button class="nav-button prev" aria-label="Imagen anterior" type="button"
+      >‹</button
+    >
+    <button class="nav-button next" aria-label="Imagen siguiente" type="button"
+      >›</button
+    >
     <div class="carousel-container flex animate-slide" id="carousel">
       {
-        allImages.map((image, index) => (
+        selectedImages.map((image, index) => (
           <div class="flex-shrink-0 w-full max-w-md h-80 mx-4 carousel-item">
             <ImageMod
               src={`/images/gallery/${image}`}
@@ -70,6 +74,25 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
               height={320}
               class="w-full h-full object-cover rounded-lg shadow-lg"
               format="webp"
+              loading={index < 3 ? "eager" : "lazy"}
+              fetchpriority={index < 3 ? "high" : "low"}
+            />
+          </div>
+        ))
+      }
+      <!-- Duplicate images for infinite effect -->
+      {
+        selectedImages.map((image, index) => (
+          <div class="flex-shrink-0 w-full max-w-md h-80 mx-4 carousel-item">
+            <ImageMod
+              src={image}
+              alt={`Producto regional ${index + 13}`}
+              width={400}
+              height={320}
+              class="w-full h-full object-cover rounded-lg shadow-lg"
+              format="webp"
+              loading="lazy"
+              fetchpriority="low"
             />
           </div>
         ))
@@ -79,7 +102,8 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  // Function to initialize the carousel
+  function initCarousel() {
     const carousel = document.getElementById("carousel");
     const prevBtn = document.querySelector(".nav-button.prev");
     const nextBtn = document.querySelector(".nav-button.next");
@@ -91,30 +115,29 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
     let currentPosition = 0;
     let isAnimating = false;
     let autoAnimationStopped = false;
+    const totalImages = 20; // Número de imágenes seleccionadas
 
     // Función para mover el carrusel
     function moveCarousel(direction: "next" | "prev") {
       if (isAnimating || !carousel) return;
       isAnimating = true;
 
-      // Detener animación automática al usar navegación manual
+      // Stop automatic animation when using manual navigation
       if (!autoAnimationStopped) {
         carousel.style.animationPlayState = "paused";
         carousel.style.animation = "none";
         autoAnimationStopped = true;
       }
 
-      const totalImages = 20; // Número de imágenes seleccionadas aleatoriamente
-
       if (direction === "next") {
         currentPosition -= itemWidth;
-        // Si llega al final (después de mostrar las 20 imágenes originales), vuelve al inicio
+        // Si llega al final, vuelve al inicio
         if (Math.abs(currentPosition) >= itemWidth * totalImages) {
           currentPosition = 0;
         }
       } else {
         currentPosition += itemWidth;
-        // Si llega al inicio, va al final
+        // If it reaches the beginning, go to the end
         if (currentPosition > 0) {
           currentPosition = -itemWidth * (totalImages - 1);
         }
@@ -129,17 +152,16 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
     // Función para reanudar animación automática
     function resumeAutoAnimation() {
-      // No reanudar si la animación fue detenida manualmente
       if (autoAnimationStopped || !carousel) return;
       setTimeout(() => {
         if (carousel && !autoAnimationStopped) {
           carousel.style.animation = "slide 60s linear infinite";
           carousel.style.animationPlayState = "running";
         }
-      }, 3000); // Reanudar después de 3 segundos de inactividad
+      }, 3000);
     }
 
-    // Event listeners para los botones (con prevención de múltiples clics)
+    // Event listeners for buttons
     let isButtonDisabled = false;
 
     prevBtn.addEventListener("click", () => {
@@ -147,9 +169,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
         isButtonDisabled = true;
         moveCarousel("prev");
         resumeAutoAnimation();
-        setTimeout(() => {
-          isButtonDisabled = false;
-        }, 600); // Prevenir clics múltiples
+        setTimeout(() => (isButtonDisabled = false), 600);
       }
     });
 
@@ -158,9 +178,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
         isButtonDisabled = true;
         moveCarousel("next");
         resumeAutoAnimation();
-        setTimeout(() => {
-          isButtonDisabled = false;
-        }, 600); // Prevenir clics múltiples
+        setTimeout(() => (isButtonDisabled = false), 600);
       }
     });
 
@@ -180,7 +198,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
       });
     }
 
-    // Soporte para touch/swipe en móviles
+    // Support for touch/swipe on mobile
     let startX = 0;
     let isDragging = false;
 
@@ -199,7 +217,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
       const currentX = e.touches[0].clientX;
       const diff = startX - currentX;
 
-      const minSwipeDistance = 30; // Distancia mínima para considerar un swipe
+      const minSwipeDistance = 30;
 
       if (Math.abs(diff) > minSwipeDistance) {
         if (diff > 0) {
@@ -209,7 +227,6 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
         }
         isDragging = false;
       } else if (Math.abs(diff) < 10) {
-        // Si el movimiento es muy pequeño, no hacer nada (probablemente un tap accidental)
         isDragging = false;
       }
     });
@@ -218,7 +235,14 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
       isDragging = false;
       resumeAutoAnimation();
     });
-  });
+  }
+
+  // Inicializar cuando el DOM esté listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCarousel);
+  } else {
+    initCarousel();
+  }
 </script>
 
 <style>
