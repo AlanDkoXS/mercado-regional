@@ -93,3 +93,6 @@ netlify
 # Github
 .github
 github
+
+# Kilo
+.kilocode
