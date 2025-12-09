@@ -80,7 +80,7 @@ const {
       ? JSON.parse(el.dataset.greetings)
       : ["Bienvenido", "Welcome", "Willkommen", "Kuira'ba"];
     if (!el) return;
-    // Limpiar cualquier ciclo anterior
+    // Clear any previous cycle
     if (bannerInterval) clearInterval(bannerInterval);
     el.classList.remove("fade-in-up");
     el.classList.remove("opacity-0");

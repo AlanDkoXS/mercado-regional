@@ -21,7 +21,7 @@ const bgImageMod = async (
   const rel = normalize(src);
   const clean = rel.startsWith("/images/") ? rel : `/images${rel}`;
 
-  // 1. Intentar en assets (eager) - metadatos inmediatos
+  // 1. Try in assets (eager) - immediate metadata
   const assetImages = import.meta.glob<{
     default: ImageMetadata;
   }>("/src/assets/images/**/*.{jpeg,jpg,png,gif,webp,svg}", { eager: true });
