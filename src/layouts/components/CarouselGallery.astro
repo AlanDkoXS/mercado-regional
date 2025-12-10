@@ -167,18 +167,36 @@ const selectedImages = getRandomImages(galleryImages, 20);
     }
 
     // Event listeners for buttons
-    prevBtn.addEventListener("click", () => {
-      speed = -5; // Reverse faster
-      setTimeout(() => {
-        speed = 0.5;
-      }, 2000);
+    prevBtn.addEventListener("mousedown", () => {
+      speed = -5; // Reverse while pressed
+    });
+    prevBtn.addEventListener("mouseup", () => {
+      speed = 0.5; // Resume normal
+    });
+    prevBtn.addEventListener("mouseleave", () => {
+      speed = 0.5; // Resume if mouse leaves
+    });
+    prevBtn.addEventListener("touchstart", () => {
+      speed = -5;
+    });
+    prevBtn.addEventListener("touchend", () => {
+      speed = 0.5;
     });
 
-    nextBtn.addEventListener("click", () => {
-      speed = 5; // Forward faster
-      setTimeout(() => {
-        speed = 0.5;
-      }, 2000);
+    nextBtn.addEventListener("mousedown", () => {
+      speed = 5; // Forward while pressed
+    });
+    nextBtn.addEventListener("mouseup", () => {
+      speed = 0.5;
+    });
+    nextBtn.addEventListener("mouseleave", () => {
+      speed = 0.5;
+    });
+    nextBtn.addEventListener("touchstart", () => {
+      speed = 5;
+    });
+    nextBtn.addEventListener("touchend", () => {
+      speed = 0.5;
     });
 
     // Support for touch/swipe on mobile
