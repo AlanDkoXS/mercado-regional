@@ -74,8 +74,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
               height={320}
               class="w-full h-full object-cover rounded-lg shadow-lg"
               format="webp"
-              loading={index < 3 ? "eager" : "lazy"}
-              fetchpriority={index < 3 ? "high" : "low"}
+              aboveTheFold={false}
             />
           </div>
         ))
@@ -91,8 +90,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
               height={320}
               class="w-full h-full object-cover rounded-lg shadow-lg"
               format="webp"
-              loading="lazy"
-              fetchpriority="low"
+              aboveTheFold={false}
             />
           </div>
         ))
