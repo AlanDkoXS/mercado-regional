@@ -17,7 +17,8 @@ const findAsset = (filename: string) => {
 const {
   src,
   srcDarkmode,
-}: { src?: string | any; srcDarkmode?: string | any } = Astro.props;
+  aboveTheFold = false,
+}: { src?: string | any; srcDarkmode?: string | any; aboveTheFold?: boolean } = Astro.props;
 const {
   logo,
   logo_darkmode,
@@ -82,6 +83,7 @@ const h = Number(String(logo_height).replace("px", ""));
               width: w + "px",
             }}
             format="webp"
+            aboveTheFold={aboveTheFold}
           />
           {theme_switcher && effectiveDark && (
             <ImageMod
@@ -95,6 +97,7 @@ const h = Number(String(logo_height).replace("px", ""));
                 width: w + "px",
               }}
               format="webp"
+              aboveTheFold={aboveTheFold}
             />
           )}
         </span>
@@ -112,6 +115,7 @@ const h = Number(String(logo_height).replace("px", ""));
               width: (w * 2) + "px",
             }}
             format="webp"
+            aboveTheFold={aboveTheFold}
           />
           {theme_switcher && effectiveDarkH && (
             <ImageMod
@@ -125,6 +129,7 @@ const h = Number(String(logo_height).replace("px", ""));
                 width: (w * 2) + "px",
               }}
               format="webp"
+              aboveTheFold={aboveTheFold}
             />
           )}
         </span>
