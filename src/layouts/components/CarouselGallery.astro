@@ -60,7 +60,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
     <button class="nav-button next" aria-label="Imagen siguiente" type="button"
       >›</button
     >
-    <div class="carousel-container flex gap-4 animate-slide" id="carousel">
+    <div class="carousel-container flex gap-4" id="carousel">
       {
         selectedImages.map((image, index) => (
           <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-80 carousel-item">
@@ -122,18 +122,62 @@ const selectedImages = getRandomImages(galleryImages, 20);
 
     if (!carousel || !prevBtn || !nextBtn || items.length === 0) return;
 
+    let currentPosition = 0;
+    let speed = 0.5; // pixels per frame, adjust for smoothness
+    let itemWidth = 0;
+    let totalWidth = 0;
+    let animationId: number | null = null;
+
+    // Calculate dimensions after layout
+    function calculateDimensions() {
+      itemWidth = (items[0] as HTMLElement).offsetWidth;
+      totalWidth = itemWidth * 60; // 60 items total
+    }
+
+    // Move carousel function
+    function moveCarousel() {
+      currentPosition -= speed;
+
+      // Handle infinite loop
+      if (currentPosition <= -totalWidth / 3) {
+        currentPosition = 0;
+      } else if (currentPosition >= 0 && speed < 0) {
+        currentPosition = -totalWidth / 3;
+      }
+
+      if (carousel)
+        carousel.style.transform = `translateX(${currentPosition}px)`;
+      animationId = requestAnimationFrame(moveCarousel);
+    }
+
+    // Start animation
+    function startAnimation() {
+      if (!animationId) {
+        calculateDimensions();
+        moveCarousel();
+      }
+    }
+
+    // Stop animation
+    function stopAnimation() {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    }
+
     // Event listeners for buttons
     prevBtn.addEventListener("click", () => {
-      carousel.style.animationDirection = "reverse";
+      speed = -5; // Reverse faster
       setTimeout(() => {
-        carousel.style.animationDirection = "normal";
+        speed = 0.5;
       }, 2000);
     });
 
     nextBtn.addEventListener("click", () => {
-      carousel.style.animationDuration = "30s";
+      speed = 5; // Forward faster
       setTimeout(() => {
-        carousel.style.animationDuration = "60s";
+        speed = 0.5;
       }, 2000);
     });
 
@@ -144,6 +188,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
     carousel.addEventListener("touchstart", (e) => {
       startX = e.touches[0].clientX;
       isDragging = true;
+      stopAnimation(); // Pause during swipe
     });
 
     carousel.addEventListener("touchmove", (e) => {
@@ -155,9 +200,9 @@ const selectedImages = getRandomImages(galleryImages, 20);
 
       if (Math.abs(diff) > minSwipeDistance) {
         if (diff > 0) {
-          carousel.style.animationDuration = "30s";
+          speed = 5; // Swipe right to left: next
         } else {
-          carousel.style.animationDirection = "reverse";
+          speed = -5; // Swipe left to right: prev
         }
         isDragging = false;
       } else if (Math.abs(diff) < 10) {
@@ -167,9 +212,12 @@ const selectedImages = getRandomImages(galleryImages, 20);
 
     carousel.addEventListener("touchend", () => {
       isDragging = false;
-      carousel.style.animationDuration = "60s";
-      carousel.style.animationDirection = "normal";
+      speed = 0.5; // Resume normal speed
+      startAnimation();
     });
+
+    // Start on load
+    startAnimation();
   }
 
   // Inicializar cuando el DOM esté listo
@@ -181,21 +229,8 @@ const selectedImages = getRandomImages(galleryImages, 20);
 </script>
 
 <style>
-  @keyframes slide {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-33.333%);
-    }
-  }
-
-  .animate-slide {
-    animation: slide 60s linear infinite;
-  }
-
   .carousel-container {
-    transition: transform 0.5s ease;
+    /* Removed infinite animation, now controlled by JS */
   }
 
   /* Navigation buttons */
