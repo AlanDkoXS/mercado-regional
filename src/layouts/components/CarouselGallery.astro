@@ -40,8 +40,6 @@ const galleryImages = [
   "MR[250902-025829][35-37].jpg",
   "MR[250902-025847][36-37].jpg",
   "MR[250902-030011][37-37].jpg",
-  "local-day2.png",
-  "local-noon.png",
 ];
 
 // Función para seleccionar imágenes aleatorias
@@ -52,7 +50,6 @@ function getRandomImages(images: string[], count: number): string[] {
 
 // Seleccionar 20 imágenes aleatorias y duplicarlas para el efecto infinito
 const selectedImages = getRandomImages(galleryImages, 20);
-const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 ---
 
 <section class="py-8 w-screen">
@@ -85,7 +82,23 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
           <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-80 carousel-item">
             <ImageMod
               src={`/images/gallery/${image}`}
-              alt={`Producto regional ${index + 13}`}
+              alt={`Producto regional ${index + 21}`}
+              width={400}
+              height={320}
+              class="w-full h-full object-cover rounded-lg shadow-lg"
+              format="webp"
+              aboveTheFold={false}
+            />
+          </div>
+        ))
+      }
+      <!-- Third copy for more buffer -->
+      {
+        selectedImages.map((image, index) => (
+          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-80 carousel-item">
+            <ImageMod
+              src={`/images/gallery/${image}`}
+              alt={`Producto regional ${index + 41}`}
               width={400}
               height={320}
               class="w-full h-full object-cover rounded-lg shadow-lg"
@@ -109,92 +122,20 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
     if (!carousel || !prevBtn || !nextBtn || items.length === 0) return;
 
-    const itemWidth = (items[0] as HTMLElement).offsetWidth + 16; // width + gap
-    let currentPosition = 0;
-    let isAnimating = false;
-    let autoAnimationStopped = false;
-    const totalImages = 20; // Número de imágenes seleccionadas
-
-    // Función para mover el carrusel
-    function moveCarousel(direction: "next" | "prev") {
-      if (isAnimating || !carousel) return;
-      isAnimating = true;
-
-      // Stop automatic animation when using manual navigation
-      if (!autoAnimationStopped) {
-        carousel.style.animationPlayState = "paused";
-        carousel.style.animation = "none";
-        autoAnimationStopped = true;
-      }
-
-      if (direction === "next") {
-        currentPosition -= itemWidth;
-        // Si llega al final, vuelve al inicio
-        if (Math.abs(currentPosition) >= itemWidth * totalImages) {
-          currentPosition = 0;
-        }
-      } else {
-        currentPosition += itemWidth;
-        // If it reaches the beginning, go to the end
-        if (currentPosition > 0) {
-          currentPosition = -itemWidth * (totalImages - 1);
-        }
-      }
-
-      carousel.style.transform = `translateX(${currentPosition}px)`;
-
-      setTimeout(() => {
-        isAnimating = false;
-      }, 500);
-    }
-
-    // Función para reanudar animación automática
-    function resumeAutoAnimation() {
-      if (autoAnimationStopped || !carousel) return;
-      setTimeout(() => {
-        if (carousel && !autoAnimationStopped) {
-          carousel.style.animation = "slide 60s linear infinite";
-          carousel.style.animationPlayState = "running";
-        }
-      }, 3000);
-    }
-
     // Event listeners for buttons
-    let isButtonDisabled = false;
-
     prevBtn.addEventListener("click", () => {
-      if (!isButtonDisabled) {
-        isButtonDisabled = true;
-        moveCarousel("prev");
-        resumeAutoAnimation();
-        setTimeout(() => (isButtonDisabled = false), 600);
-      }
+      carousel.style.animationDirection = "reverse";
+      setTimeout(() => {
+        carousel.style.animationDirection = "normal";
+      }, 2000);
     });
 
     nextBtn.addEventListener("click", () => {
-      if (!isButtonDisabled) {
-        isButtonDisabled = true;
-        moveCarousel("next");
-        resumeAutoAnimation();
-        setTimeout(() => (isButtonDisabled = false), 600);
-      }
+      carousel.style.animationDuration = "30s";
+      setTimeout(() => {
+        carousel.style.animationDuration = "60s";
+      }, 2000);
     });
-
-    // Pausar animación automática al hacer hover
-    const carouselWrapper = document.querySelector(".carousel-wrapper");
-    if (carouselWrapper && carousel) {
-      carouselWrapper.addEventListener("mouseenter", () => {
-        if (!autoAnimationStopped) {
-          carousel.style.animationPlayState = "paused";
-        }
-      });
-
-      carouselWrapper.addEventListener("mouseleave", () => {
-        if (!autoAnimationStopped) {
-          carousel.style.animationPlayState = "running";
-        }
-      });
-    }
 
     // Support for touch/swipe on mobile
     let startX = 0;
@@ -203,11 +144,6 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
     carousel.addEventListener("touchstart", (e) => {
       startX = e.touches[0].clientX;
       isDragging = true;
-      if (!autoAnimationStopped) {
-        carousel.style.animationPlayState = "paused";
-        carousel.style.animation = "none";
-        autoAnimationStopped = true;
-      }
     });
 
     carousel.addEventListener("touchmove", (e) => {
@@ -219,9 +155,9 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
       if (Math.abs(diff) > minSwipeDistance) {
         if (diff > 0) {
-          moveCarousel("next");
+          carousel.style.animationDuration = "30s";
         } else {
-          moveCarousel("prev");
+          carousel.style.animationDirection = "reverse";
         }
         isDragging = false;
       } else if (Math.abs(diff) < 10) {
@@ -231,7 +167,8 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
     carousel.addEventListener("touchend", () => {
       isDragging = false;
-      resumeAutoAnimation();
+      carousel.style.animationDuration = "60s";
+      carousel.style.animationDirection = "normal";
     });
   }
 
@@ -249,7 +186,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-33.333%);
     }
   }
 
@@ -259,10 +196,6 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
 
   .carousel-container {
     transition: transform 0.5s ease;
-  }
-
-  .carousel-container:hover {
-    animation-play-state: paused;
   }
 
   /* Navigation buttons */
