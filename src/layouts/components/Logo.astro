@@ -65,7 +65,7 @@ const w = Number(String(logo_width).replace("px", ""));
 const h = Number(String(logo_height).replace("px", ""));
 ---
 
-<a href="/" class="navbar-brand inline-block">
+<a href="/" class="navbar-brand inline-block" aria-label={`Logo de ${title}`}>
   {
     effectiveLight || effectiveDark ? (
       <>
