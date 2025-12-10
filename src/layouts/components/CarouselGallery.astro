@@ -266,10 +266,14 @@ const selectedImages = getRandomImages(galleryImages, 20);
     const modal = document.getElementById("zoom-modal");
     const closeBtn = modal?.querySelector(".zoom-close");
     const overlay = modal?.querySelector(".zoom-overlay");
+    const zoomImg = modal?.querySelector("#zoom-image");
     overlay?.addEventListener("click", () => {
       modal?.classList.remove("active");
     });
     closeBtn?.addEventListener("click", () => {
+      modal?.classList.remove("active");
+    });
+    zoomImg?.addEventListener("click", () => {
       modal?.classList.remove("active");
     });
 
@@ -385,6 +389,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
+    pointer-events: auto;
   }
 
   .zoom-content {
