@@ -42,13 +42,13 @@ const galleryImages = [
   "MR[250902-030011][37-37].jpg",
 ];
 
-// Función para seleccionar imágenes aleatorias
+// Function to select random images
 function getRandomImages(images: string[], count: number): string[] {
   const shuffled = [...images].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 }
 
-// Seleccionar 20 imágenes aleatorias y duplicarlas para el efecto infinito
+// Select 20 random images and duplicate them for infinite effect
 const selectedImages = getRandomImages(galleryImages, 20);
 ---
 
@@ -71,7 +71,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
               height={320}
               class="w-full h-full object-cover rounded-lg shadow-lg"
               format="webp"
-              aboveTheFold={false}
+              aboveTheFold={true}
               data-src={`/images/gallery/${image}`}
             />
           </div>
@@ -87,7 +87,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
               width={400}
               height={320}
               class="w-full h-full object-cover rounded-lg shadow-lg"
-              format="webp"
+              format="jpeg"
               aboveTheFold={false}
               data-src={`/images/gallery/${image}`}
             />
@@ -104,8 +104,8 @@ const selectedImages = getRandomImages(galleryImages, 20);
               width={400}
               height={320}
               class="w-full h-full object-cover rounded-lg shadow-lg"
-              format="webp"
-              aboveTheFold={false}
+              format="jpeg"
+              aboveTheFold={true}
               data-src={`/images/gallery/${image}`}
             />
           </div>
@@ -117,6 +117,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
   <!-- Zoom Modal -->
   <div id="zoom-modal" class="zoom-modal">
     <div class="zoom-overlay"></div>
+    <button class="zoom-close" aria-label="Cerrar">&times;</button>
     <img id="zoom-image" class="zoom-content" src="" alt="Imagen ampliada" />
   </div>
 </section>
@@ -263,11 +264,22 @@ const selectedImages = getRandomImages(galleryImages, 20);
 
     // Close modal
     const modal = document.getElementById("zoom-modal");
-    modal?.addEventListener("click", (e) => {
-      if (
-        e.target === modal ||
-        e.target === modal.querySelector(".zoom-overlay")
-      ) {
+    const closeBtn = modal?.querySelector(".zoom-close");
+    const zoomImg = modal?.querySelector("#zoom-image");
+    modal?.addEventListener("click", () => {
+      modal?.classList.remove("active");
+    });
+    closeBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      modal?.classList.remove("active");
+    });
+    zoomImg?.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    // Close on ESC key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal?.classList.contains("active")) {
         modal.classList.remove("active");
       }
     });
@@ -276,7 +288,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
     startAnimation();
   }
 
-  // Inicializar cuando el DOM esté listo
+  // Initialize when DOM is ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initCarousel);
   } else {
@@ -380,10 +392,32 @@ const selectedImages = getRandomImages(galleryImages, 20);
   }
 
   .zoom-content {
-    max-width: 90vw;
-    max-height: 90vh;
+    width: 80vw;
+    height: 80vh;
     object-fit: contain;
     z-index: 1001;
     position: relative;
+  }
+
+  .zoom-close {
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .zoom-close:hover {
+    background: rgba(0, 0, 0, 0.8);
   }
 </style>

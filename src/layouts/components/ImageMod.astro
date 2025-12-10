@@ -26,6 +26,7 @@ interface Props {
   style?: any;
   fetchpriority?: "high" | "low" | "auto";
   aboveTheFold?: boolean;
+  dataSrc?: string;
 }
 
 let {
@@ -41,6 +42,7 @@ let {
   style,
   fetchpriority,
   aboveTheFold,
+  dataSrc,
 }: Props = Astro.props;
 
 if (aboveTheFold) {
