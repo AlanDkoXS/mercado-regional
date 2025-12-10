@@ -76,8 +76,8 @@ const resolve = (input?: ImgInput): ResolvedImage | undefined => {
   if (typeof input !== "string") return { meta: input };
   const rel = normalizePath(input);
   const clean = rel.startsWith("/images/") ? rel : `/images${rel}`;
-  const assetEntry = Object.entries(assetImages).find(([fullPath]) =>
-    fullPath.endsWith(clean),
+  const assetEntry = Object.entries(assetImages).find(
+    ([fullPath]) => fullPath === `/src/assets${clean}`,
   );
   if (assetEntry) return { meta: assetEntry[1].default };
   console.error(

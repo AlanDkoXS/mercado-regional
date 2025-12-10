@@ -85,7 +85,7 @@ const allImages = [...selectedImages, ...selectedImages, ...selectedImages];
         selectedImages.map((image, index) => (
           <div class="flex-shrink-0 w-full max-w-md h-80 mx-4 carousel-item">
             <ImageMod
-              src={image}
+              src={`/images/gallery/${image}`}
               alt={`Producto regional ${index + 13}`}
               width={400}
               height={320}
