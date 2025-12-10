@@ -3,7 +3,6 @@ import BannerGradient from "@/components/BannerGradient.astro";
 import Brands from "@/components/Brands.astro";
 import ImageMod from "@/components/ImageMod.astro";
 import Base from "@/layouts/Base.astro";
-import HeroBanner from "@/layouts/components/HeroBanner.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToAction from "@/partials/CallToAction.astro";
 import Testimonial from "@/partials/Testimonial.astro";
@@ -40,7 +39,6 @@ const { banner, features } = homepage.data as Homepage;
 ---
 
 <Base>
-  <HeroBanner />
   <!-- Banner -->
   <section class="section pt-14">
     <div class="container">
