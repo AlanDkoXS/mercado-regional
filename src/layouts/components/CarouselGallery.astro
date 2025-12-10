@@ -176,72 +176,88 @@ const selectedImages = getRandomImages(galleryImages, 20);
       }
     }
 
-    // Event listeners for buttons
-    prevBtn.addEventListener("mousedown", () => {
-      speed = -5; // Reverse while pressed
-    });
-    prevBtn.addEventListener("mouseup", () => {
-      speed = 0.5; // Resume normal
-    });
-    prevBtn.addEventListener("mouseleave", () => {
-      speed = 0.5; // Resume if mouse leaves
-    });
-    prevBtn.addEventListener("touchstart", () => {
-      speed = -5;
-    });
-    prevBtn.addEventListener("touchend", () => {
-      speed = 0.5;
-    });
+    const isMobile = window.innerWidth < 768;
 
-    nextBtn.addEventListener("mousedown", () => {
-      speed = 5; // Forward while pressed
-    });
-    nextBtn.addEventListener("mouseup", () => {
-      speed = 0.5;
-    });
-    nextBtn.addEventListener("mouseleave", () => {
-      speed = 0.5;
-    });
-    nextBtn.addEventListener("touchstart", () => {
-      speed = 5;
-    });
-    nextBtn.addEventListener("touchend", () => {
-      speed = 0.5;
-    });
+    if (!isMobile) {
+      // Event listeners for buttons
+      prevBtn.addEventListener("mousedown", () => {
+        speed = -5; // Reverse while pressed
+      });
+      prevBtn.addEventListener("mouseup", () => {
+        speed = 0.5; // Resume normal
+      });
+      prevBtn.addEventListener("mouseleave", () => {
+        speed = 0.5; // Resume if mouse leaves
+      });
+      prevBtn.addEventListener("touchstart", () => {
+        speed = -5;
+      });
+      prevBtn.addEventListener("touchend", () => {
+        speed = 0.5;
+      });
 
-    // Support for touch/swipe on mobile
+      nextBtn.addEventListener("mousedown", () => {
+        speed = 5; // Forward while pressed
+      });
+      nextBtn.addEventListener("mouseup", () => {
+        speed = 0.5;
+      });
+      nextBtn.addEventListener("mouseleave", () => {
+        speed = 0.5;
+      });
+      nextBtn.addEventListener("touchstart", () => {
+        speed = 5;
+      });
+      nextBtn.addEventListener("touchend", () => {
+        speed = 0.5;
+      });
+
+      // Start continuous animation on desktop
+      startAnimation();
+    }
+
+    // Touch/swipe handling
     let startX = 0;
+    let initialPosition = 0;
     let isDragging = false;
 
     carousel.addEventListener("touchstart", (e) => {
       startX = e.touches[0].clientX;
+      initialPosition = currentPosition;
       isDragging = true;
-      stopAnimation(); // Pause during swipe
-    });
-
-    carousel.addEventListener("touchmove", (e) => {
-      if (!isDragging || !carousel) return;
-      const currentX = e.touches[0].clientX;
-      const diff = startX - currentX;
-
-      const minSwipeDistance = 30;
-
-      if (Math.abs(diff) > minSwipeDistance) {
-        if (diff > 0) {
-          speed = 5; // Swipe right to left: next
-        } else {
-          speed = -5; // Swipe left to right: prev
-        }
-        isDragging = false;
-      } else if (Math.abs(diff) < 10) {
-        isDragging = false;
+      if (!isMobile) {
+        stopAnimation();
       }
     });
 
-    carousel.addEventListener("touchend", () => {
+    carousel.addEventListener("touchmove", (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const currentX = e.touches[0].clientX;
+      const deltaX = currentX - startX;
+      const newPosition = initialPosition + deltaX;
+      carousel.style.transform = `translateX(${newPosition}px)`;
+    });
+
+    carousel.addEventListener("touchend", (e) => {
+      if (!isDragging) return;
       isDragging = false;
-      speed = 0.5; // Resume normal speed
-      startAnimation();
+      const endX = e.changedTouches[0].clientX;
+      const deltaX = endX - startX;
+      // Snap to nearest item
+      calculateDimensions();
+      const movedItems = Math.round(deltaX / itemWidth);
+      currentPosition = initialPosition - movedItems * itemWidth;
+      // Handle infinite loop
+      if (currentPosition <= -totalWidth / 3) {
+        currentPosition += totalWidth / 3;
+      } else if (currentPosition > 0) {
+        currentPosition -= totalWidth / 3;
+      }
+      carousel.style.transform = `translateX(${currentPosition}px)`;
+      if (!isMobile) {
+        startAnimation();
+      }
     });
 
     // Zoom functionality
@@ -283,9 +299,6 @@ const selectedImages = getRandomImages(galleryImages, 20);
         modal.classList.remove("active");
       }
     });
-
-    // Start on load
-    startAnimation();
   }
 
   // Initialize when DOM is ready
@@ -347,9 +360,11 @@ const selectedImages = getRandomImages(galleryImages, 20);
     }
 
     .nav-button {
-      width: 45px;
-      height: 45px;
-      font-size: 20px;
+      display: none;
+    }
+
+    .carousel-container {
+      transition: transform 0.3s ease;
     }
   }
 
