@@ -148,12 +148,8 @@ const heroImages = [
     startAutoSlide();
   }
 
-  // Initialize when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initHeroCarousel);
-  } else {
-    initHeroCarousel();
-  }
+  // Initialize on page load and after view transitions
+  document.addEventListener("astro:page-load", initHeroCarousel);
 </script>
 
 <style>

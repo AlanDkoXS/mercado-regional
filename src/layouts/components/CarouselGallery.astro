@@ -321,12 +321,8 @@ const selectedImages = getRandomImages(galleryImages, 20);
     });
   }
 
-  // Initialize when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initCarousel);
-  } else {
-    initCarousel();
-  }
+  // Initialize on page load and after view transitions
+  document.addEventListener("astro:page-load", initCarousel);
 </script>
 
 <style>

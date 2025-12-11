@@ -286,12 +286,8 @@ const selectedImages = restaurantImages;
     });
   }
 
-  // Initialize when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initRestaurantCarousel);
-  } else {
-    initRestaurantCarousel();
-  }
+  // Initialize on page load and after view transitions
+  document.addEventListener("astro:page-load", initRestaurantCarousel);
 </script>
 
 <style>
