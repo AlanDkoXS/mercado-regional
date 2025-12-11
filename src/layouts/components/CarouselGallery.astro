@@ -190,7 +190,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
         speed = 0.5; // Resume if mouse leaves
       });
       prevBtn.addEventListener("touchstart", () => {
-        speed = -5;
+        speed = -1;
       });
       prevBtn.addEventListener("touchend", () => {
         speed = 0.5;
@@ -245,18 +245,22 @@ const selectedImages = getRandomImages(galleryImages, 20);
       isDragging = false;
       const endX = e.changedTouches[0].clientX;
       const deltaX = endX - startX;
-      // Snap to nearest item
+
+      // Update the current position permanently
+      currentPosition = initialPosition + deltaX;
+
+      // Handle infinite loop boundaries
       calculateDimensions();
-      const movedItems = Math.round(deltaX / itemWidth);
-      currentPosition = initialPosition - movedItems * itemWidth;
-      // Handle infinite loop
-      if (currentPosition <= -totalWidth / 3) {
-        currentPosition += totalWidth / 3;
-      } else if (currentPosition > 0) {
+      if (currentPosition > 0) {
         currentPosition -= totalWidth / 3;
+      } else if (currentPosition <= -totalWidth / 3) {
+        currentPosition += totalWidth / 3;
       }
-      carousel.style.transition = "transform 0.3s ease";
+
+      // Remove transition and apply position
+      carousel.style.transition = "none";
       carousel.style.transform = `translateX(${currentPosition}px)`;
+
       if (!isMobile) {
         startAnimation();
       }
