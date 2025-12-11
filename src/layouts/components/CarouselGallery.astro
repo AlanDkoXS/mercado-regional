@@ -225,6 +225,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
       startX = e.touches[0].clientX;
       initialPosition = currentPosition;
       isDragging = true;
+      carousel.style.transition = "none";
       if (!isMobile) {
         stopAnimation();
       }
@@ -254,6 +255,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
       } else if (currentPosition > 0) {
         currentPosition -= totalWidth / 3;
       }
+      carousel.style.transition = "transform 0.3s ease";
       carousel.style.transform = `translateX(${currentPosition}px)`;
       if (!isMobile) {
         startAnimation();
@@ -312,6 +314,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
 <style>
   .carousel-container {
     /* Removed infinite animation, now controlled by JS */
+    will-change: transform;
   }
 
   /* Navigation buttons */
