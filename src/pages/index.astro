@@ -3,6 +3,7 @@ import BannerGradient from "@/components/BannerGradient.astro";
 import Brands from "@/components/Brands.astro";
 import ImageMod from "@/components/ImageMod.astro";
 import Base from "@/layouts/Base.astro";
+import RestaurantCarousel from "@/layouts/components/RestaurantCarousel.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToAction from "@/partials/CallToAction.astro";
 import Testimonial from "@/partials/Testimonial.astro";
@@ -117,5 +118,23 @@ const { banner, features } = homepage.data as Homepage;
 
   <Brands />
   <Testimonial testimonial={testimonial} />
+  <!-- Restaurant Service Section -->
+  <section class="section bg-gradient">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="col-12 text-center">
+          <h2>Contamos con Servicio de Restaurante</h2>
+          <p>Comida casera deliciosa preparada con ingredientes frescos.</p>
+          <p>Teléfono: 614-495-9960</p>
+          <p>Horario:</p>
+          <ul>
+            <li>Lunes a Sábado: 8:00 AM - 9:00 PM</li>
+            <li>Domingo: 8:00 AM - 6:00 PM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <RestaurantCarousel />
+  </section>
   <CallToAction call_to_action={call_to_action} />
 </Base>
