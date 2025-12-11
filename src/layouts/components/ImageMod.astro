@@ -22,8 +22,6 @@ interface Props {
   loading?: "eager" | "lazy";
   decoding?: "async" | "auto" | "sync";
   format?: "auto" | "avif" | "jpeg" | "png" | "svg" | "webp";
-  quality?: number;
-  densities?: number[];
   class?: string;
   style?: any;
   fetchpriority?: "high" | "low" | "auto";
@@ -41,8 +39,6 @@ let {
   decoding,
   class: className,
   format,
-  quality,
-  densities,
   style,
   fetchpriority,
   aboveTheFold,
@@ -59,10 +55,6 @@ if (!aboveTheFold) {
   fetchpriority = fetchpriority || "low";
   decoding = decoding || "async";
 }
-
-// Set default quality and densities for better image sharpness
-quality = quality || 100;
-densities = densities || [1, 2, 3];
 
 // Single glob for assets
 const assetImages = import.meta.glob<{
@@ -117,8 +109,6 @@ const finalHeight = height || lightResolved?.meta?.height || undefined;
       decoding={decoding}
       class={className}
       format={format}
-      quality={quality}
-      densities={densities}
       style={style}
       fetchpriority={fetchpriority}
     />
@@ -136,8 +126,6 @@ const finalHeight = height || lightResolved?.meta?.height || undefined;
         decoding={decoding}
         class={`${className ?? ""} block dark:hidden`}
         format={format}
-        quality={quality}
-        densities={densities}
         style={style}
         fetchpriority={fetchpriority}
       />
@@ -150,8 +138,6 @@ const finalHeight = height || lightResolved?.meta?.height || undefined;
         decoding={decoding}
         class={`${className ?? ""} hidden dark:block`}
         format={format}
-        quality={quality}
-        densities={densities}
         style={style}
         fetchpriority={fetchpriority}
       />
