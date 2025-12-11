@@ -1,7 +1,7 @@
 ---
 enable: true
 title: "¿Buscas los sabores de casa?"
-image: "/images/bussines/why-choose-us.jpg"
+image: "/images/sections/why-choose-us.jpg"
 description: "En Mercado Regional encontrarás los productos regionales que buscas, listos para acompañarte en tu camino. Tu parada de confianza está aquí."
 button:
   enable: true
