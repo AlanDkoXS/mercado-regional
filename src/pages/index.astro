@@ -119,22 +119,16 @@ const { banner, features } = homepage.data as Homepage;
   <Brands />
   <Testimonial testimonial={testimonial} />
   <!-- Restaurant Service Section -->
-  <section class="section bg-gradient">
+  <section class="section bg-gradient pb-1">
     <div class="container">
       <div class="row justify-center">
         <div class="col-12 text-center">
           <h2>Contamos con Servicio de Restaurante</h2>
-          <p>Comida casera deliciosa preparada con ingredientes frescos.</p>
-          <p>Teléfono: 614-495-9960</p>
-          <p>Horario:</p>
-          <ul>
-            <li>Lunes a Sábado: 8:00 AM - 9:00 PM</li>
-            <li>Domingo: 8:00 AM - 6:00 PM</li>
-          </ul>
+          <p>Comida casera deliciosa preparada con ingredientes locales.</p>
         </div>
       </div>
     </div>
-    <RestaurantCarousel />
   </section>
-  <CallToAction call_to_action={call_to_action} />
+  <RestaurantCarousel />
 </Base>
+<CallToAction call_to_action={call_to_action} />
