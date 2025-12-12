@@ -56,6 +56,75 @@ const galleryImages = [
   "variedad-de-quesos-8.jpg",
 ];
 
+// Image descriptions mapping
+const imageDescriptions: Record<string, string> = {
+  "variedad-de-nueces-semillas-y-botanas.jpg": "Variedad de Nueces y Semillas",
+  "salsa-unicas-en-nuestro-negocio.jpg": "Salsas Únicas Caseras",
+  "salsa-unicas-en-nuestro-negocio-2.jpg": "Salsas Artesanales Especiales",
+  "crema-de-cacahuate.jpg": "Crema de Cacahuate Premium",
+  "miel-de-productores-regionales.jpg": "Miel Pura Regional",
+  "miel-de-productores-regionales-2.jpg": "Miel de Productores Locales",
+  "salsas-casera.jpg": "Salsas Caseras Tradicionales",
+  "artesanias-carrito.jpg": "Artesanía: Carrito Tradicional",
+  "artesanias-mujer-tarahumara.jpg": "Artesanía Tarahumara",
+  "artesanias-muñequita-raramuri.jpg": "Muñequita Rarámuri Hecha a Mano",
+  "artesanias-regionales.jpg": "Artesanías Regionales Auténticas",
+  "miel-y-chips-de-manzana.jpg": "Miel y Chips de Manzana",
+  "mansanisima-jugo-de-manzana.jpg": "Jugo de Manzana Artesanal",
+  "felix-refresco-artesanal.jpg": "Refresco Artesanal Félix",
+  "variedad-de-mermeladas.jpg": "Mermeladas Caseras Variadas",
+  "carne-seca-en-tira.jpg": "Carne Seca Premium",
+  "carne-seca-y-salsa-valentina.jpg": "Carne Seca con Salsa Valentina",
+  "variedad-de-palomitas.jpg": "Palomitas Gourmet Variadas",
+  "jabones-artesanales.jpg": "Jabones Artesanales Naturales",
+  "variedad-de-productos.jpg": "Variedad de Productos Regionales",
+  "variedad-de-productos-cimarron.jpg": "Productos Especiales Cimarrón",
+  "variedad-de-artesanias-en-ceramica.jpg": "Cerámica Artesanal Bella",
+  "variedad-de-productos-y-artesanias.jpg": "Productos y Artesanías Variadas",
+  "miel-de-productores.jpg": "Miel de Productores Locales",
+  "variedad-de-salsas-diferentes-productores.jpg":
+    "Salsas de Diferentes Productores",
+  "carne-seca-1800.jpg": "Carne Seca Tradicional",
+  "vitaminas-productores-locales.jpg": "Vitaminas de Productores Locales",
+  "carbon-vegetal.jpg": "Carbón Vegetal Puro",
+  "caldo-de-hueso.jpg": "Caldo de Hueso Nutritivo",
+  "cajeta-de-leche.jpg": "Cajeta de Leche Artesanal",
+  "sidra.jpg": "Sidra Artesanal",
+  "artesania-gatito.jpg": "Artesanía: Gatito Decorativo",
+  "variedad-de-cacahuates.jpg": "Cacahuates Varios",
+  "remedios-naturales.jpg": "Remedios Naturales Tradicionales",
+  "souvenirs.jpg": "Souvenirs Regionales",
+  "souvenirs-2.jpg": "Recuerdos Artesanales",
+  "souvenirs-3.jpg": "Souvenirs Únicos",
+  "souvenirs-4.jpg": "Recuerdos Especiales",
+  "embutidos-menonitas.jpg": "Embutidos Menonitas Auténticos",
+  "pan-menonita.jpg": "Pan Menonita Fresco",
+  "jugos-de-manzana.jpg": "Jugos de Manzana Natural",
+  "jugos-de-manzana-2.jpg": "Jugos Frescos de Manzana",
+  "variedad-de-quesos.jpg": "Quesos Regionales Variados",
+  "variedad-de-quesos-2.jpg": "Selección de Quesos Artesanales",
+  "variedad-de-quesos-3.jpg": "Quesos de Productores Locales",
+  "variedad-de-quesos-4.jpg": "Quesos Artesanales Deliciosos",
+  "variedad-de-quesos-5.jpg": "Variedad de Quesos Premium",
+  "variedad-de-quesos-6.jpg": "Quesos Tradicionales",
+  "variedad-de-quesos-7.jpg": "Selección Especial de Quesos",
+  "variedad-de-quesos-8.jpg": "Quesos Finos Regionales",
+};
+
+// Function to get image description
+function getImageDescription(filename: string): string {
+  return imageDescriptions[filename] || "Producto Regional";
+}
+
+// Function to convert image filename to descriptive text
+function getImageDescriptionOld(filename: string): string {
+  return filename
+    .replace(/\.jpg$/, "")
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 // Function to select random images
 function getRandomImages(images: string[], count: number): string[] {
   const shuffled = [...images].sort(() => 0.5 - Math.random());
@@ -77,7 +146,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
     <div class="carousel-container flex gap-4" id="carousel">
       {
         selectedImages.map((image, index) => (
-          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-80 carousel-item">
+          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-80 carousel-item relative group overflow-hidden rounded-lg">
             <ImageMod
               src={`/images/gallery/${image}`}
               alt={`Producto regional ${index + 1}`}
@@ -88,13 +157,18 @@ const selectedImages = getRandomImages(galleryImages, 20);
               aboveTheFold={true}
               data-src={`/images/gallery/${image}`}
             />
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <p class="text-white text-sm font-medium line-clamp-2">
+                {getImageDescription(image)}
+              </p>
+            </div>
           </div>
         ))
       }
       <!-- Duplicate images for infinite effect -->
       {
         selectedImages.map((image, index) => (
-          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-80 carousel-item">
+          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-80 carousel-item relative group overflow-hidden rounded-lg">
             <ImageMod
               src={`/images/gallery/${image}`}
               alt={`Producto regional ${index + 21}`}
@@ -105,13 +179,18 @@ const selectedImages = getRandomImages(galleryImages, 20);
               aboveTheFold={false}
               data-src={`/images/gallery/${image}`}
             />
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <p class="text-white text-sm font-medium line-clamp-2">
+                {getImageDescription(image)}
+              </p>
+            </div>
           </div>
         ))
       }
       <!-- Third copy for more buffer -->
       {
         selectedImages.map((image, index) => (
-          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-80 carousel-item">
+          <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-80 carousel-item relative group overflow-hidden rounded-lg">
             <ImageMod
               src={`/images/gallery/${image}`}
               alt={`Producto regional ${index + 41}`}
@@ -122,6 +201,11 @@ const selectedImages = getRandomImages(galleryImages, 20);
               aboveTheFold={true}
               data-src={`/images/gallery/${image}`}
             />
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <p class="text-white text-sm font-medium line-clamp-2">
+                {getImageDescription(image)}
+              </p>
+            </div>
           </div>
         ))
       }
@@ -132,7 +216,10 @@ const selectedImages = getRandomImages(galleryImages, 20);
   <div id="zoom-modal" class="zoom-modal">
     <div class="zoom-overlay"></div>
     <button class="zoom-close" aria-label="Cerrar">&times;</button>
-    <img id="zoom-image" class="zoom-content" src="" alt="Imagen ampliada" />
+    <div class="zoom-content-wrapper">
+      <img id="zoom-image" class="zoom-content" src="" alt="Imagen ampliada" />
+      <p id="zoom-text" class="zoom-text"></p>
+    </div>
   </div>
 </section>
 
@@ -283,6 +370,7 @@ const selectedImages = getRandomImages(galleryImages, 20);
     // Zoom functionality
     items.forEach((item) => {
       const img = item.querySelector("img");
+      const textElement = item.querySelector("p");
       if (img) {
         img.style.cursor = "pointer";
         img.addEventListener("click", (e) => {
@@ -291,8 +379,15 @@ const selectedImages = getRandomImages(galleryImages, 20);
           const zoomImg = document.getElementById(
             "zoom-image",
           ) as HTMLImageElement;
+          const zoomText = document.getElementById(
+            "zoom-text",
+          ) as HTMLParagraphElement;
           // Use optimized image for zoom
           zoomImg.src = img.src;
+          // Get the description text from the carousel item
+          if (textElement) {
+            zoomText.textContent = textElement.textContent;
+          }
           modal?.classList.add("active");
         });
       }
@@ -430,6 +525,24 @@ const selectedImages = getRandomImages(galleryImages, 20);
     object-fit: contain;
     z-index: 1001;
     position: relative;
+  }
+
+  .zoom-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    z-index: 1001;
+    position: relative;
+  }
+
+  .zoom-text {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 70vw;
+    padding: 0 1rem;
   }
 
   .zoom-close {
